@@ -985,7 +985,10 @@ export default function LearnerCourseView({
                         )}
 
                         {/* Sidebar with module tasks - hidden on mobile by default */}
-                        <div className={`${isSidebarOpen ? 'absolute inset-0' : 'hidden'} lg:relative lg:block w-64 h-full bg-[#121212] border-r border-gray-800 flex flex-col overflow-hidden z-10`}>
+                        <div
+                            className={`${isSidebarOpen ? 'block' : 'hidden'
+                                } fixed z-20 h-full w-full bg-gray-900 shadow-xl lg:relative lg:w-96`}
+                        >
                             {/* Sidebar Header */}
                             <div className="p-4 border-b border-gray-800 bg-[#0A0A0A] flex items-center justify-between">
                                 <h3 className="text-lg font-light text-white truncate">
@@ -994,7 +997,7 @@ export default function LearnerCourseView({
                                 {/* Close button for mobile sidebar */}
                                 <button
                                     onClick={toggleSidebar}
-                                    className={`lg:hidden mr-3 flex-shrink-0 mt-1 ${completedTasks[activeItem?.id]
+                                    className={`mr-3 flex-shrink-0 mt-1 ${completedTasks[activeItem?.id]
                                         ? "text-white"
                                         : "text-gray-400 hover:text-white"
                                         }`}
@@ -1126,7 +1129,7 @@ export default function LearnerCourseView({
                                     {/* Hamburger menu for mobile */}
                                     <button
                                         onClick={toggleSidebar}
-                                        className={`lg:hidden mr-3 flex-shrink-0 mt-1 ${completedTasks[activeItem?.id]
+                                        className={`mr-3 flex-shrink-0 mt-1 ${completedTasks[activeItem?.id]
                                             ? "text-white"
                                             : "text-gray-400 hover:text-white"
                                             }`}

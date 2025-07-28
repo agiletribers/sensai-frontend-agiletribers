@@ -34,6 +34,7 @@ export interface LearnerQuizViewProps {
     onAiRespondingChange?: (isResponding: boolean) => void;
     onMobileViewChange?: (mode: MobileViewMode) => void;
     isAdminView?: boolean;
+    readOnly?: boolean;
 }
 
 export default function LearnerQuizView({
