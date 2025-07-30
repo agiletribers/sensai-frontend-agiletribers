@@ -518,29 +518,29 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
 
                     {/* Input area with fixed position at bottom */}
                     {!viewOnly && (
-                        <div className="pt-2 bg-[#111111] input-container">
+                        <div className="pt-2 bg-[#ffffff] input-container">
                             {/* Learning Material Suggestions */}
                             {taskType === 'learning_material' && currentChatHistory.length === 0 && (
                                 <div className="mb-4">
-                                    <div className="text-gray-400 text-sm mb-2 flex items-center">
+                                    <div className="text-gray-600 text-sm mb-2 flex items-center">
                                         <Sparkles size={16} className="mr-2" />
                                         <span>A few suggestions to get started</span>
                                     </div>
                                     <div className="flex flex-wrap gap-2 mb-2">
                                         <button
-                                            className="px-3 py-1.5 bg-[#222222] rounded-full text-sm text-white hover:bg-[#333333] transition-colors cursor-pointer"
+                                            className="px-3 py-1.5 bg-[#f5f5f5] rounded-full text-sm text-black hover:text-white hover:bg-[#f2ab55] transition-colors cursor-pointer"
                                             onClick={() => handleSuggestionClick("Explain using an example")}
                                         >
                                             Explain using an example
                                         </button>
                                         <button
-                                            className="px-3 py-1.5 bg-[#222222] rounded-full text-sm text-white hover:bg-[#333333] transition-colors cursor-pointer"
+                                            className="px-3 py-1.5 bg-[#f5f5f5] rounded-full text-sm text-black hover:text-white hover:bg-[#f2ab55] transition-colors cursor-pointer"
                                             onClick={() => handleSuggestionClick("Summarise it with clear takeaways")}
                                         >
                                             Summarise it with clear takeaways
                                         </button>
                                         <button
-                                            className="px-3 py-1.5 bg-[#222222] rounded-full text-sm text-white hover:bg-[#333333] transition-colors cursor-pointer"
+                                            className="px-3 py-1.5 bg-[#f5f5f5] rounded-full text-sm text-black hover:text-white hover:bg-[#f2ab55] transition-colors cursor-pointer"
                                             onClick={() => handleSuggestionClick("Why is this important to understand")}
                                         >
                                             Why is this important to understand
@@ -562,13 +562,13 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                                     ) : (
                                         /* Hide the text input for coding questions in exam mode */
                                         !(currentQuestionConfig?.responseType === 'exam' && isCodingQuestion) && (
-                                            <div className="relative flex items-center bg-[#111111] rounded-3xl py-1 overflow-hidden border border-[#222222]">
+                                            <div className="relative flex items-center bg-[#f8f8f8] rounded-3xl py-1 overflow-hidden border border-[#f1f1f1]">
                                                 <div className="flex-1 flex items-center">
                                                     <textarea
                                                         id="no-border-textarea"
                                                         ref={textareaRef}
                                                         placeholder={taskType === 'quiz' ? "Type your answer here" : "Type your question here"}
-                                                        className="ml-2 w-full bg-transparent text-white auto-expanding-textarea"
+                                                        className="ml-2 w-full bg-transparent text-black auto-expanding-textarea"
                                                         value={currentAnswer}
                                                         onChange={handleInputChange as any}
                                                         onKeyDown={handleTextareaKeyDown}
@@ -585,7 +585,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                                                     />
                                                 </div>
                                                 <button
-                                                    className={`bg-white rounded-full w-10 h-10 mr-2 cursor-pointer flex items-center justify-center ${isSubmitting || isAiResponding ? 'opacity-50' : ''}`}
+                                                    className={`bg-[#f2ab55] rounded-full w-10 h-10 mr-2 cursor-pointer flex items-center justify-center ${isSubmitting || isAiResponding ? 'opacity-50' : ''}`}
                                                     onClick={() => handleSubmitAnswer('text')}
                                                     disabled={!currentAnswer.trim() || isSubmitting || isAiResponding}
                                                     aria-label="Submit answer"
@@ -595,7 +595,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                                                         <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
                                                     ) : (
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                         </svg>
                                                     )}
                                                 </button>
@@ -686,7 +686,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                         right: 0 !important;
                         bottom: 0 !important;
                         z-index: 50 !important;
-                        background-color: #111111 !important;
+                        background-color: #ffffff !important;
                     }
                     
                     .mobile-code-preview-enter {
@@ -707,7 +707,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                         top: 12px !important;
                         left: 12px !important;
                         z-index: 60 !important;
-                        background-color: rgba(0, 0, 0, 0.5) !important;
+                        background-color: rgba(238, 30, 217, 0.5) !important;
                         color: white !important;
                         border: none !important;
                         border-radius: 50% !important;
@@ -726,9 +726,9 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                     height: 32px;
                     border-radius: 16px;
                     overflow: hidden;
-                    background-color: #111111;
-                    border: 1px solid #333333;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    background-color: #ffffff;
+                    border: 1px solid #f1f1f1;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
                 }
                 
                 .code-toggle-option {
@@ -739,7 +739,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                     padding: 0 12px;
                     cursor: pointer;
                     user-select: none;
-                    color: #999999;
+                    color: #1a1a1a;
                     font-size: 12px;
                     transition: all 0.2s ease;
                     position: relative;
@@ -747,8 +747,8 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                 }
                 
                 .code-toggle-option.active {
-                    color: #ffffff;
-                    background-color: #222222;
+                    color: #1a1a1a;
+                    background-color: #ffffff;
                 }
                 
                 /* Responsive styles for audio component */
@@ -777,7 +777,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                                 className={`px-4 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition-colors cursor-pointer flex items-center ${isSaving ? 'opacity-75' : ''}`}
                             >
                                 {isSaving ? (
-                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                    <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin mr-2"></div>
                                 ) : (
                                     <Save size={16} className="mr-2" />
                                 )}

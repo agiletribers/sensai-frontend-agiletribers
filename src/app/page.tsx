@@ -146,7 +146,7 @@ export default function Home() {
       `}
       </style>
 
-      <div className="min-h-screen bg-black text-white overflow-y-auto">
+      <div className="min-h-screen bg-white text-black overflow-y-auto">
         {/* Use the reusable Header component */}
         <Header
           showCreateCourseButton={hasAnyCourses || (hasSchool ?? false)}
@@ -168,12 +168,12 @@ export default function Home() {
               {/* Segmented control for tabs */}
               {showSegmentedTabs && (
                 <div className="flex justify-center mb-8">
-                  <div className="inline-flex bg-[#222222] rounded-lg p-1 w-full sm:w-auto">
+                  <div className="inline-flex bg-[#ffffff] rounded-lg p-1 w-full sm:w-auto">
                     {tabsToShow.includes('teaching') && (
                       <button
                         className={`flex items-center justify-center px-1 xxs:px-2 sm:px-4 py-2 rounded-md text-xs sm:text-sm xxs:font-medium cursor-pointer flex-1 sm:flex-initial ${activeTab === 'teaching'
-                          ? 'bg-[#333333] text-white'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#ffffff] text-black'
+                          : 'text-gray-800 hover:text-black'
                           }`}
                         onClick={() => setActiveTab('teaching')}
                       >
@@ -186,8 +186,8 @@ export default function Home() {
                     {tabsToShow.includes('mentoring') && (
                       <button
                         className={`flex items-center justify-center px-1 xxs:px-2 sm:px-4 py-2 rounded-md text-xs sm:text-sm xxs:font-medium cursor-pointer flex-1 sm:flex-initial ${activeTab === 'mentoring'
-                          ? 'bg-[#333333] text-white'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#ffffff] text-black'
+                          : 'text-gray-800 hover:text-black'
                           }`}
                         onClick={() => setActiveTab('mentoring')}
                       >
@@ -200,8 +200,8 @@ export default function Home() {
                     {tabsToShow.includes('learning') && (
                       <button
                         className={`flex items-center justify-center px-1 xxs:px-2 sm:px-4 py-2 rounded-md text-xs sm:text-sm xxs:font-medium cursor-pointer flex-1 sm:flex-initial ${activeTab === 'learning'
-                          ? 'bg-[#333333] text-white'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#ffffff] text-black'
+                          : 'text-gray-800 hover:text-black'
                           }`}
                         onClick={() => setActiveTab('learning')}
                       >
@@ -221,7 +221,7 @@ export default function Home() {
                   // No courses at all - show universal placeholder
                   <div className="text-center py-12">
                     <h2 className="text-2xl font-medium mb-2">What if your next big idea became a course?</h2>
-                    <p className="text-gray-400 mb-6">It might be easier than you think</p>
+                    <p className="text-gray-800 mb-6">It might be easier than you think</p>
                     <div className="flex justify-center gap-4">
                       <button
                         onClick={handleCreateCourseButtonClick}

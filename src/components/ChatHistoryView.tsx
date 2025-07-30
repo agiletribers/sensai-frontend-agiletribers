@@ -21,13 +21,13 @@ const CodeMessageDisplay = ({ code, language }: { code: string, language?: strin
         }
 
         return (
-            <div className="w-full rounded bg-[#1D1D1D] overflow-hidden">
+            <div className="w-full rounded bg-[#f8f8f8] overflow-hidden">
                 {languageSections.map(([lang, codeSection], index) => (
                     <div key={index} className="mb-2 last:mb-0">
-                        <div className="flex items-center justify-between bg-[#2D2D2D] px-3 py-1.5 text-xs text-gray-300">
+                        <div className="flex items-center justify-between bg-[#f1f1f1] px-3 py-1.5 text-xs text-gray-400">
                             <span>{lang}</span>
                         </div>
-                        <pre className="p-3 overflow-x-auto text-xs text-gray-200">
+                        <pre className="p-3 overflow-x-auto text-xs text-gray-400">
                             <code>{codeSection}</code>
                         </pre>
                     </div>
@@ -38,11 +38,11 @@ const CodeMessageDisplay = ({ code, language }: { code: string, language?: strin
 
     // If no language headers, display as a single code block
     return (
-        <div className="w-full rounded bg-[#1D1D1D] overflow-hidden">
-            <div className="flex items-center justify-between bg-[#2D2D2D] px-3 py-1.5 text-xs text-gray-300">
+        <div className="w-full rounded bg-[#ffffff] overflow-hidden">
+            <div className="flex items-center justify-between bg-[#f8f8f8] px-3 py-1.5 text-xs text-gray-800">
                 <span>{language || 'code'}</span>
             </div>
-            <pre className="p-3 overflow-x-auto text-xs text-gray-200">
+            <pre className="p-3 overflow-x-auto text-xs text-gray-800">
                 <code>{code}</code>
             </pre>
         </div>
@@ -221,10 +221,10 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
     }
 
     .highlight-animation {
-      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 50%, 
+      background: linear-gradient(to right, rgba(235, 60, 200, 0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 50%, 
       rgba(255,255,255,0) 75%);
       background-size: 200% auto;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(34, 33, 33, 0.6);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -289,7 +289,7 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                                     className={`rounded-2xl px-4 py-2 ${message.messageType === 'audio'
                                         ? 'w-full sm:w-[75%]'
                                         : message.messageType === 'code'
-                                            ? 'bg-[#282828] text-white w-[90%]'
+                                            ? 'bg-[#f5f5f5] text-black w-[90%]'
                                             : `${message.sender === 'user' ? 'bg-[#333333] text-white' : 'bg-[#1A1A1A] text-white'} max-w-[75%]`
                                         }`}
                                 >
@@ -297,11 +297,11 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                                         currentQuestionConfig?.responseType === 'exam' &&
                                         onShowLearnerViewChange &&
                                         isAdminView && (
-                                            <div className={`-mx-4 -mt-2 mb-4 px-4 pt-3 pb-2 rounded-t-2xl border-b border-[#35363a] ${message.is_correct !== undefined
+                                            <div className={`-mx-4 -mt-2 mb-4 px-4 pt-3 pb-2 rounded-t-2xl border-b border-[#f1f1f1] ${message.is_correct !== undefined
                                                 ? message.is_correct
                                                     ? 'bg-green-900/40'
                                                     : 'bg-red-900/40'
-                                                : 'bg-[#232428]'
+                                                : 'bg-[#ffffff]'
                                                 }`}>
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center">
@@ -309,28 +309,28 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                                                             <div className={`mr-2 w-5 h-5 rounded-full flex items-center justify-center ${message.is_correct ? 'bg-green-600' : 'bg-red-600'
                                                                 }`}>
                                                                 {message.is_correct ? (
-                                                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <svg className="w-3 h-3 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                                                     </svg>
                                                                 ) : (
-                                                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <svg className="w-3 h-3 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
                                                                     </svg>
                                                                 )}
                                                             </div>
                                                         )}
-                                                        <span className="text-sm text-gray-300 font-light select-none">Show result</span>
+                                                        <span className="text-sm text-gray-400 font-light select-none">Show result</span>
                                                     </div>
                                                     <button
                                                         onClick={() => onShowLearnerViewChange(!showLearnerView)}
                                                         className={`relative cursor-pointer inline-flex h-6 w-11 items-center rounded-full border transition-colors duration-200 focus:outline-none
-                                                            ${!showLearnerView ? 'bg-white border-gray-400' : 'bg-[#444950] border-[#444950]'}
+                                                            ${!showLearnerView ? 'bg-white border-gray-400' : 'bg-[#ffffff] border-[#444950]'}
                                                         `}
                                                         aria-pressed={!showLearnerView}
                                                         aria-label="Show result toggle"
                                                     >
                                                         <span
-                                                            className={`inline-block h-5 w-5 transform rounded-full bg-black shadow-md transition-transform duration-200
+                                                            className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-200
                                                                 ${!showLearnerView ? 'translate-x-5' : 'translate-x-1'}
                                                             `}
                                                         />
@@ -373,7 +373,7 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                                                 <div className="my-3">
                                                     <button
                                                         onClick={() => onViewScorecard(message.scorecard || [])}
-                                                        className="bg-[#333333] text-white px-4 py-2 rounded-full text-xs hover:bg-[#444444] transition-colors cursor-pointer flex items-center"
+                                                        className="bg-[#f2ab55] text-white px-4 py-2 rounded-full text-xs  transition-colors cursor-pointer flex items-center"
                                                     >
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -386,7 +386,7 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                                                 <div className="my-3">
                                                     <button
                                                         onClick={onRetry}
-                                                        className="bg-[#333333] text-white px-4 py-2 mb-2 rounded-full text-xs hover:bg-[#444444] transition-colors cursor-pointer flex items-center"
+                                                        className="bg-[#f2ab55] text-white px-4 py-2 mb-2 rounded-full text-xs transition-colors cursor-pointer flex items-center"
                                                     >
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -405,7 +405,7 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                     {/* Show "Preparing report" as an AI message */}
                     {showPreparingReport && (
                         <div className="flex justify-start">
-                            <div className="rounded-2xl px-4 py-3 bg-[#1A1A1A] text-white max-w-[75%]">
+                            <div className="rounded-2xl px-4 py-3 bg-[#ffffff] text-black max-w-[75%]">
                                 <div className="flex items-center">
                                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
                                     <div className="flex flex-col">
@@ -422,7 +422,7 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                         <div className="flex justify-start items-center my-2 ml-2">
                             <div className="flex items-center justify-center min-w-[20px] min-h-[20px] mr-2">
                                 <div
-                                    className="w-2.5 h-2.5 bg-white rounded-full pulsating-circle"
+                                    className="w-2.5 h-2.5 bg-purple-400 rounded-full pulsating-circle"
                                 ></div>
                             </div>
                             <div className={`${isTransitioning ? 'message-transition-out' : 'message-transition-in'}`}>
@@ -445,7 +445,7 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                 .highlight-animation {
                     background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 75%);
                     background-size: 200% auto;
-                    color: rgba(255, 255, 255, 0.6);
+                    color: rgba(24, 23, 23, 0.6);
                     background-clip: text;
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
@@ -519,13 +519,13 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                         margin-top: 0.8em;
                         margin-bottom: 1em;
                         padding: 0.8em;
-                        background-color: #282828;
+                        background-color: #f8f8f8;
                         border-radius: 4px;
                         overflow-x: auto;
                     }
                     
                     & code {
-                        background-color: rgba(40, 40, 40, 0.6);
+                        background-color: rgba(252, 252, 252, 0.6);
                         border-radius: 3px;
                         padding: 0.2em 0.4em;
                         font-size: 0.9em;
@@ -552,7 +552,7 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                     }
                     
                     & th {
-                        background-color: #2d2d2d;
+                        background-color: #f8f8f8;
                     }
                     
                     /* Horizontal rule */

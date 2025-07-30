@@ -116,7 +116,7 @@ export default function InviteMembersDialog({ open, onClose, onInvite }: InviteM
             onClick={onClose}
         >
             <div
-                className="w-full max-w-lg bg-[#1A1A1A] rounded-lg shadow-2xl"
+                className="w-full max-w-lg bg-[#ffffff] rounded-lg shadow-2xl"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Dialog Content */}
@@ -132,7 +132,7 @@ export default function InviteMembersDialog({ open, onClose, onInvite }: InviteM
                                         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                                             <Mail
                                                 size={18}
-                                                className={`transition-colors ${focusedInputIndex === index ? 'text-white' : 'text-gray-500'}`}
+                                                className={`transition-colors ${focusedInputIndex === index ? 'text-black' : 'text-gray-800'}`}
                                             />
                                         </div>
                                         <input
@@ -145,8 +145,8 @@ export default function InviteMembersDialog({ open, onClose, onInvite }: InviteM
                                             onFocus={() => setFocusedInputIndex(index)}
                                             onBlur={() => setFocusedInputIndex(null)}
                                             placeholder="Enter email address"
-                                            className={`w-full bg-[#0A0A0A] pl-10 pr-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none ${errors[index] && focusedInputIndex !== index
-                                                ? 'border-2 border-red-500'
+                                            className={`w-full bg-[#f5f5f5] pl-10 pr-4 py-3 rounded-lg text-black placeholder-gray-400 focus:outline-none ${errors[index] && focusedInputIndex !== index
+                                                ? 'border-1 border-red-500'
                                                 : focusedInputIndex === index
                                                     ? 'border border-white'
                                                     : 'border-0'
@@ -160,7 +160,7 @@ export default function InviteMembersDialog({ open, onClose, onInvite }: InviteM
                                 {emailRows.length > 1 && (
                                     <button
                                         onClick={() => removeEmailRow(index)}
-                                        className="text-gray-400 hover:text-white transition-colors p-2 cursor-pointer focus:outline-none self-start mt-1.5"
+                                        className="text-red hover:text-red transition-colors p-2 cursor-pointer focus:outline-none self-start mt-1.5"
                                     >
                                         <Trash2 size={20} />
                                     </button>
@@ -170,7 +170,7 @@ export default function InviteMembersDialog({ open, onClose, onInvite }: InviteM
                     </div>
                     <button
                         onClick={addEmailRow}
-                        className="flex items-center gap-2 text-gray-400 hover:text-white w-full py-3 px-4 rounded-lg transition-colors mt-2 cursor-pointer focus:outline-none hover:bg-[#111]"
+                        className="flex items-center gap-2 text-gray-800 hover:text-white w-full py-3 px-4 rounded-lg transition-colors mt-2 cursor-pointer focus:outline-none hover:bg-[#f2ab55]"
                     >
                         <Plus size={20} />
                         <span>Add another email</span>
@@ -181,13 +181,13 @@ export default function InviteMembersDialog({ open, onClose, onInvite }: InviteM
                 <div className="flex justify-end gap-4 px-6 py-4">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
+                        className="px-4 py-2 text-gray-400  hover:text-black transition-colors focus:outline-none cursor-pointer"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSubmit}
-                        className="px-6 py-2 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
+                        className="px-6 py-2 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
                     >
                         Invite
                     </button>

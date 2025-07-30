@@ -670,7 +670,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-black text-white">
+            <div className="min-h-screen bg-white text-black">
                 <Header showCreateCourseButton={false} />
                 <div className="flex justify-center items-center py-12">
                     <div className="w-12 h-12 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
@@ -681,7 +681,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
 
     if (!cohort) {
         return (
-            <div className="min-h-screen bg-black text-white flex items-center justify-center">
+            <div className="min-h-screen bg-white text-black flex items-center justify-center">
                 <p>Cohort not found</p>
             </div>
         );
@@ -700,18 +700,18 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                 }
                 
                 input::placeholder {
-                    color: #666666 !important;
+                    color: #f8f8f8 !important;
                 }
             `}</style>
             <Header showCreateCourseButton={false} />
-            <div className="min-h-screen bg-black text-white">
+            <div className="min-h-screen bg-white text-black">
                 <div className="container mx-auto px-4 py-8">
                     <main>
                         <div className="mb-4">
                             <div className="flex flex-col">
                                 <Link
                                     href={`/school/admin/${schoolId}#cohorts`}
-                                    className="flex items-center text-gray-400 hover:text-white transition-colors mb-4"
+                                    className="flex items-center text-gray-400 hover:text-black transition-colors mb-4"
                                 >
                                     <ArrowLeft size={16} className="mr-2" />
                                     Back to cohorts
@@ -719,7 +719,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
 
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center flex-1">
-                                        <div className="w-12 h-12 bg-purple-700 rounded-lg flex items-center justify-center mr-4">
+                                        <div className="w-12 h-12 bg-[#f2ab55] rounded-lg flex items-center justify-center mr-4">
                                             <Layers size={24} className="text-white" />
                                         </div>
                                         <div>
@@ -751,7 +751,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                                                 </button>
                                                 <button
                                                     onClick={cancelCohortNameEditing}
-                                                    className="flex items-center justify-center space-x-2 px-6 py-3 bg-[#333] text-white text-sm font-medium rounded-full hover:bg-[#444] transition-colors cursor-pointer"
+                                                    className="flex items-center justify-center space-x-2 px-6 py-3 bg-red-800 text-white text-sm font-medium rounded-full hover:opacity-60 transition-colors cursor-pointer"
                                                     data-testid="cancel-cohort-name-button"
                                                 >
                                                     <X size={16} />
@@ -762,7 +762,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                                             <>
                                                 <button
                                                     onClick={enableCohortNameEditing}
-                                                    className="flex items-center justify-center space-x-2 px-6 py-3 bg-[#333] text-white text-sm font-medium rounded-full hover:bg-[#444] transition-colors cursor-pointer"
+                                                    className="flex items-center justify-center space-x-2 px-6 py-3 bg-purple-400 text-white text-sm font-medium hover:opacity-60 rounded-full  transition-colors cursor-pointer"
                                                     data-testid="edit-cohort-name-button"
                                                 >
                                                     <Pencil size={16} />
@@ -781,7 +781,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                                                 <div className="relative">
                                                     <button
                                                         data-dropdown-toggle="true"
-                                                        className="flex items-center justify-center space-x-2 px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity cursor-pointer"
+                                                        className="flex items-center justify-center space-x-2 px-6 py-3 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity cursor-pointer"
                                                         onClick={() => {
                                                             setIsDropdownOpen(!isDropdownOpen);
                                                             if (!isDropdownOpen) {
@@ -820,22 +820,22 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                                             {cohort.courses.map(course => (
                                                 <div
                                                     key={course.id}
-                                                    className="flex items-center bg-[#222] px-4 py-2 rounded-full group hover:bg-[#333] transition-colors"
+                                                    className="flex items-center bg-[#ffffff] px-4 py-2 rounded-full group hover:bg-[#f8f8f8] transition-colors"
                                                 >
                                                     <Tooltip content="Settings" position="top">
                                                         <button
                                                             onClick={() => handleOpenSettingsDialog(course)}
-                                                            className="text-gray-400 hover:text-white cursor-pointer flex items-center mr-2"
+                                                            className="text-gray-400 hover:text-black cursor-pointer flex items-center mr-2"
                                                             aria-label="View settings"
                                                         >
                                                             <Settings size={16} />
                                                         </button>
                                                     </Tooltip>
-                                                    <span className="text-white text-sm font-light">{course.name}</span>
+                                                    <span className="text-black text-sm font-light">{course.name}</span>
                                                     <Tooltip content="Remove" position="top">
                                                         <button
                                                             onClick={() => initiateCourseUnlink(course)}
-                                                            className="text-gray-400 hover:text-white cursor-pointer flex items-center ml-2"
+                                                            className="text-gray-400 hover:text-black cursor-pointer flex items-center ml-2"
                                                             aria-label="Remove course from cohort"
                                                         >
                                                             <X size={16} />
@@ -851,11 +851,11 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
 
                         {/* Full-width tabs */}
                         <div className="mb-8">
-                            <div className="flex border-b border-gray-800">
+                            <div className="flex border-b border-gray-200">
                                 {/* Show Dashboard tab only when courses exist */}
                                 {cohort?.courses && cohort.courses.length > 0 && (
                                     <button
-                                        className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'dashboard' ? 'text-white border-b-2 border-white' : 'text-gray-400 hover:text-white'}`}
+                                        className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'dashboard' ? 'text-black border-b-2 border-white' : 'text-gray-400 hover:text-black'}`}
                                         onClick={() => setTab('dashboard')}
                                     >
                                         <div className="flex items-center justify-center">
@@ -865,7 +865,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                                     </button>
                                 )}
                                 <button
-                                    className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'learners' ? 'text-white border-b-2 border-white' : 'text-gray-400 hover:text-white'}`}
+                                    className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'learners' ? 'text-black border-b-2 border-white' : 'text-gray-400 hover:text-black'}`}
                                     onClick={() => setTab('learners')}
                                 >
                                     <div className="flex items-center justify-center">
@@ -874,7 +874,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                                     </div>
                                 </button>
                                 <button
-                                    className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'mentors' ? 'text-white border-b-2 border-white' : 'text-gray-400 hover:text-white'}`}
+                                    className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'mentors' ? 'text-black border-b-2 border-white' : 'text-gray-400 hover:text-black'}`}
                                     onClick={() => setTab('mentors')}
                                 >
                                     <div className="flex items-center justify-center">
@@ -883,7 +883,7 @@ export default function ClientCohortPage({ schoolId, cohortId }: ClientCohortPag
                                     </div>
                                 </button>
                                 <button
-                                    className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'batches' ? 'text-white border-b-2 border-white' : 'text-gray-400 hover:text-white'}`}
+                                    className={`flex-1 px-4 py-2 font-light cursor-pointer ${tab === 'batches' ? 'text-black border-b-2 border-white' : 'text-gray-400 hover:text-black'}`}
                                     onClick={() => setTab('batches')}
                                 >
                                     <div className="flex items-center justify-center">

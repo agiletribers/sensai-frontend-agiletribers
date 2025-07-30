@@ -535,7 +535,7 @@ export default function CourseModuleList({
                         <div
                             key={module.id}
                             className="border-none rounded-lg transition-colors"
-                            style={{ backgroundColor: module.backgroundColor }}
+                            style={{ backgroundColor: '#E8DFEB' }}
                         >
                             <div className="flex flex-col">
                                 {/* Module header with title and buttons */}
@@ -551,7 +551,7 @@ export default function CourseModuleList({
 
                                             onToggleModule(module.id);
                                         }}
-                                        className={`hidden sm:block mr-2 transition-colors ${module.unlockAt ? 'text-gray-500 cursor-not-allowed' : 'text-gray-400 hover:text-white cursor-pointer'}`}
+                                        className={`hidden sm:block mr-2 transition-colors ${module.unlockAt ? 'text-gray-800 cursor-not-allowed' : 'text-gray-400 hover:text-black cursor-pointer'}`}
                                         aria-label={getIsExpanded(module.id) ? "Collapse module" : "Expand module"}
                                         disabled={!!module.unlockAt}
                                     >
@@ -562,7 +562,7 @@ export default function CourseModuleList({
                                             <h2
                                                 contentEditable
                                                 suppressContentEditableWarning
-                                                className="text-lg sm:text-xl font-light text-white outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-gray-400 empty:before:pointer-events-none"
+                                                className="text-lg sm:text-xl font-light text-black outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-gray-400 empty:before:pointer-events-none"
                                                 data-module-id={module.id}
                                                 data-placeholder="New Module"
                                                 onClick={(e) => e.stopPropagation()}
@@ -572,12 +572,12 @@ export default function CourseModuleList({
                                         ) : (
                                             <div className="flex items-center">
                                                 <h2
-                                                    className={`text-lg sm:text-xl font-light ${module.unlockAt ? 'text-gray-400' : 'text-white'}`}
+                                                    className={`text-lg sm:text-xl font-light ${module.unlockAt ? 'text-gray-800' : 'text-black'}`}
                                                 >
                                                     {module.title || "New Module"}
                                                 </h2>
                                                 {module.unlockAt && (
-                                                    <Lock size={16} className="ml-2 text-gray-400" />
+                                                    <Lock size={16} className="ml-2 text-gray-800" />
                                                 )}
                                             </div>
                                         )}
@@ -593,7 +593,7 @@ export default function CourseModuleList({
                                                             e.stopPropagation();
                                                             saveModuleTitle(module.id);
                                                         }}
-                                                        className="px-3 py-1 text-sm text-black bg-gray-300 hover:bg-gray-400 border border-black hover:border-gray-600 rounded-md transition-colors cursor-pointer flex items-center"
+                                                        className="px-3 py-1 text-sm text-black bg-gray-300 hover:bg-gray-400 border border-black hover:border-gray-200 rounded-md transition-colors cursor-pointer flex items-center"
                                                         aria-label="Save module title"
                                                     >
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
@@ -608,7 +608,7 @@ export default function CourseModuleList({
                                                             e.stopPropagation();
                                                             cancelModuleEditing(module.id);
                                                         }}
-                                                        className="px-3 py-1 text-sm text-gray-300 hover:text-white transition-colors focus:outline-none cursor-pointer flex items-center"
+                                                        className="px-3 py-1 text-sm text-gray-800 hover:text-red-600 transition-colors focus:outline-none cursor-pointer flex items-center"
                                                         aria-label="Cancel editing"
                                                     >
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
@@ -627,7 +627,7 @@ export default function CourseModuleList({
                                                                 onEditModuleTitle(module.id);
                                                             }
                                                         }}
-                                                        className="px-3 py-1 text-sm text-black bg-gray-300 hover:bg-gray-400 border border-black hover:border-gray-600 rounded-md transition-colors cursor-pointer flex items-center"
+                                                        className="px-3 py-1 text-sm text-black bg-gray-300 hover:bg-gray-400 border border-black hover:border-gray-200 rounded-md transition-colors cursor-pointer flex items-center"
                                                         aria-label="Edit module title"
                                                     >
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
@@ -642,7 +642,7 @@ export default function CourseModuleList({
                                                             handleMoveModuleUp(module.id);
                                                         }}
                                                         disabled={index === 0 || swappingModuleUpId === module.id}
-                                                        className="p-1 text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                                                        className="p-1 text-gray-800 hover:text-black disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                                                         aria-label="Move module up"
                                                     >
                                                         {swappingModuleUpId === module.id ? (
@@ -657,7 +657,7 @@ export default function CourseModuleList({
                                                             handleMoveModuleDown(module.id);
                                                         }}
                                                         disabled={index === modules.length - 1 || swappingModuleDownId === module.id}
-                                                        className="p-1 text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                                                        className="p-1 text-gray-800 hover:text-black disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                                                         aria-label="Move module down"
                                                     >
                                                         {swappingModuleDownId === module.id ? (
@@ -671,7 +671,7 @@ export default function CourseModuleList({
                                                             e.stopPropagation();
                                                             setModuleToDelete(module.id);
                                                         }}
-                                                        className="p-1 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                                                        className="p-1 text-gray-800 hover:text-red-600 transition-colors cursor-pointer"
                                                         aria-label="Delete module"
                                                         disabled={deletingModuleId === module.id}
                                                     >
@@ -697,7 +697,7 @@ export default function CourseModuleList({
                                                 onToggleModule(module.id);
 
                                             }}
-                                            className={`flex items-center px-3 py-1 text-sm focus:outline-none focus:ring-0 focus:border-0 transition-colors rounded-full border ${module.unlockAt ? 'text-gray-500 border-gray-600 bg-gray-800 cursor-not-allowed' : 'text-gray-400 hover:text-white border-gray-700 bg-gray-900 cursor-pointer'}`}
+                                            className={`flex items-center px-3 py-1 text-sm focus:outline-none focus:ring-0 focus:border-0 transition-colors rounded-full border ${module.unlockAt ? 'text-gray-800 border-gray-200 bg-gray-200 cursor-not-allowed' : 'text-gray-800 hover:text-black border-gray-200 bg-gray-200 cursor-pointer'}`}
                                             aria-label={getIsExpanded(module.id) ? "Collapse module" : "Expand module"}
                                             disabled={!!module.unlockAt}
                                         >
@@ -722,11 +722,11 @@ export default function CourseModuleList({
                                         {getIsExpanded(module.id) ? (
                                             <div className="px-4 pb-2">
                                                 <div className="flex justify-end items-center mb-1">
-                                                    <div className="text-sm text-gray-400">
+                                                    <div className="text-sm text-gray-800">
                                                         {module.progress}%
                                                     </div>
                                                 </div>
-                                                <div className="w-full bg-gray-700 h-2 rounded-full">
+                                                <div className="w-full bg-gray-200 h-2 rounded-full">
                                                     <div
                                                         className="bg-green-500 h-2 rounded-full transition-all duration-300"
                                                         style={{ width: `${module.progress}%` }}
@@ -736,11 +736,11 @@ export default function CourseModuleList({
                                         ) : (
                                             <div className="px-4 pb-4">
                                                 <div className="flex justify-end items-center mb-1">
-                                                    <div className="text-sm text-gray-400">
+                                                    <div className="text-sm text-gray-800">
                                                         {module.progress}%
                                                     </div>
                                                 </div>
-                                                <div className="w-full bg-gray-700 h-2 rounded-full">
+                                                <div className="w-full bg-gray-200 h-2 rounded-full">
                                                     <div
                                                         className="bg-green-500 h-2 rounded-full transition-all duration-300"
                                                         style={{ width: `${module.progress}%` }}
@@ -755,12 +755,12 @@ export default function CourseModuleList({
                             {/* Module content - only visible when expanded */}
                             {getIsExpanded(module.id) && (
                                 <div className="px-4 pb-4">
-                                    <div className="pl-2 sm:pl-6 border-l border-gray-400 ml-2 space-y-2">
+                                    <div className="pl-2 sm:pl-6 border-l border-gray-200 ml-2 space-y-2">
                                         {module.items.map((item, itemIndex) => (
                                             <div
                                                 key={item.id}
                                                 data-testid={`module-item-${item.id}`}
-                                                className={`flex items-center group p-2 rounded-md cursor-pointer transition-all relative mt-2 hover:bg-gray-700/50 ${completedItems[item.id] ? "opacity-60" : ""
+                                                className={`flex items-center group p-2 rounded-md cursor-pointer transition-all relative mt-2 hover:bg-gray-100/50 ${completedItems[item.id] ? "opacity-60" : ""
                                                     } ${item.isGenerating ? "opacity-40 pointer-events-none" : ""
                                                     }`}
                                                 onClick={() => onOpenItem && !item.isGenerating && onOpenItem(module.id, item.id)}
@@ -793,7 +793,7 @@ export default function CourseModuleList({
                                                                 : completedQuestionIds[item.id] &&
                                                                     Object.keys(completedQuestionIds[item.id]).some(qId => completedQuestionIds[item.id][qId] === true)
                                                                     ? "text-yellow-500"
-                                                                    : "text-white"
+                                                                    : "text-black"
                                                             } />
                                                         </div>
                                                     )}
@@ -801,19 +801,19 @@ export default function CourseModuleList({
                                                     {/* Add a small generating indicator if the item is still being generated */}
                                                     {item.isGenerating && (
                                                         <div className="ml-2 animate-pulse">
-                                                            <Loader2 size={12} className="animate-spin text-gray-400" />
+                                                            <Loader2 size={12} className="animate-spin text-gray-800" />
                                                         </div>
                                                     )}
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className={`text-base font-light ${completedItems[item.id]
-                                                        ? "line-through text-white"
+                                                        ? "line-through text-black"
                                                         : (item.type === 'quiz') &&
                                                             completedQuestionIds[item.id] &&
                                                             Object.keys(completedQuestionIds[item.id]).some(qId => completedQuestionIds[item.id][qId] === true)
                                                             ? "text-yellow-500"
-                                                            : "text-white"
-                                                        } outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-gray-400 empty:before:pointer-events-none mr-2`}>
+                                                            : "text-black"
+                                                        } outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-gray-800 empty:before:pointer-events-none mr-2`}>
                                                         {item.title}
 
                                                         {/* Always display question count for quizzes (except drafts) */}
@@ -822,7 +822,7 @@ export default function CourseModuleList({
                                                                 completedQuestionIds[item.id] &&
                                                                 Object.keys(completedQuestionIds[item.id]).some(qId => completedQuestionIds[item.id][qId] === true)
                                                                 ? "text-yellow-500"
-                                                                : "text-gray-400"
+                                                                : "text-gray-500"
                                                                 }`}>
                                                                 ({completedQuestionIds[item.id]
                                                                     ? mode === 'view' && !completedItems[item.id] && Object.keys(completedQuestionIds[item.id]).some(qId => completedQuestionIds[item.id][qId] === true)
@@ -838,13 +838,13 @@ export default function CourseModuleList({
                                                 {mode === 'edit' && (
                                                     <div className="flex items-center space-x-2" onClick={(e) => e.stopPropagation()}>
                                                         {item.status === 'draft' && (
-                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-red-500 text-white">
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-red-300 text-white">
                                                                 DRAFT
                                                             </span>
                                                         )}
                                                         {item.status === 'published' && item.scheduled_publish_at && (
                                                             <Tooltip content={`Scheduled for ${formatScheduleDate(new Date(item.scheduled_publish_at))}`} position="top">
-                                                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-yellow-900 text-white">
+                                                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-yellow-500 text-white">
                                                                     SCHEDULED
                                                                 </span>
                                                             </Tooltip>
@@ -856,7 +856,7 @@ export default function CourseModuleList({
                                                                     handleDuplicateTask(module.id, item.id);
                                                                 }}
                                                                 disabled={duplicatingTaskId === item.id}
-                                                                className="p-1 text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                                                                className="p-1 text-gray-400 hover:text-black disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                                                                 aria-label="Duplicate task as draft"
                                                             >
                                                                 {duplicatingTaskId === item.id ? (
@@ -872,11 +872,11 @@ export default function CourseModuleList({
                                                                 handleMoveTaskUp(module.id, item.id);
                                                             }}
                                                             disabled={itemIndex === 0 || swappingTaskUpId === item.id}
-                                                            className="p-1 text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                                                            className="p-1 text-gray-400 hover:text-black disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                                                             aria-label="Move item up"
                                                         >
                                                             {swappingTaskUpId === item.id ? (
-                                                                <div className="animate-spin w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full" />
+                                                                <div className="animate-spin w-4 h-4 border-2 border-gray-200 border-t-transparent rounded-full" />
                                                             ) : (
                                                                 <ChevronUp size={16} />
                                                             )}
@@ -887,7 +887,7 @@ export default function CourseModuleList({
                                                                 handleMoveTaskDown(module.id, item.id);
                                                             }}
                                                             disabled={itemIndex === module.items.length - 1 || swappingTaskDownId === item.id}
-                                                            className="p-1 text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                                                            className="p-1 text-gray-400 hover:text-black disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
                                                             aria-label="Move item down"
                                                         >
                                                             {swappingTaskDownId === item.id ? (
@@ -907,12 +907,12 @@ export default function CourseModuleList({
                                                                     });
                                                                 }
                                                             }}
-                                                            className="p-1 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                                                            className="p-1 text-gray-400 hover:text-black transition-colors cursor-pointer"
                                                             aria-label="Delete item"
                                                             disabled={deletingTaskId === item.id}
                                                         >
                                                             {deletingTaskId === item.id ? (
-                                                                <div className="animate-spin w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full" />
+                                                                <div className="animate-spin w-4 h-4 border-2 border-gray-200 border-t-transparent rounded-full" />
                                                             ) : (
                                                                 <Trash size={16} />
                                                             )}
@@ -926,12 +926,12 @@ export default function CourseModuleList({
                                                         <button
                                                             className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors cursor-pointer ${completedItems[item.id]
                                                                 ? "bg-green-500 border-0"
-                                                                : "border border-gray-500 hover:border-white"
+                                                                : "border border-gray-200 hover:border-white"
                                                                 }`}
                                                             aria-label={completedItems[item.id] ? "Mark as incomplete" : "Mark as completed"}
                                                         >
                                                             {completedItems[item.id] ? (
-                                                                <Check size={12} className="text-white" />
+                                                                <Check size={12} className="text-black" />
                                                             ) : null}
                                                         </button>
                                                     </div>
@@ -953,7 +953,7 @@ export default function CourseModuleList({
                                                                 }
                                                             }
                                                         }}
-                                                        className="flex items-center px-3 py-1.5 text-sm text-gray-300 hover:text-white border border-gray-400 rounded-full transition-colors cursor-pointer"
+                                                        className="flex items-center px-3 py-1.5 text-sm text-gray-800 hover:bg-white hover:text-black border border-gray-800 rounded-full transition-colors cursor-pointer"
                                                     >
                                                         <Plus size={14} className="mr-1" />
                                                         Learning material
@@ -970,7 +970,7 @@ export default function CourseModuleList({
                                                                 }
                                                             }
                                                         }}
-                                                        className="flex items-center px-3 py-1.5 text-sm text-gray-300 hover:text-white border border-gray-400 rounded-full transition-colors cursor-pointer"
+                                                        className="flex items-center px-3 py-1.5 text-sm text-gray-800 hover:bg-white hover:text-black border border-gray-800 rounded-full transition-colors cursor-pointer"
                                                     >
                                                         <Plus size={14} className="mr-1" />
                                                         Quiz

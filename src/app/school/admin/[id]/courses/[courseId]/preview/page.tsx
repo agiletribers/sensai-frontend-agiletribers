@@ -42,9 +42,9 @@ export default async function PreviewPage({ params }: { params: { id: string, co
         const { courseData, modules } = await getPublishedCourseModules(courseId);
 
         return (
-            <div className="min-h-screen bg-black">
+            <div className="min-h-screen bg-white">
                 {/* Preview announcement banner */}
-                <div className="bg-[#111111] border-b border-gray-800 text-white py-3 px-4 text-center shadow-sm">
+                <div className="bg-[#ffffff] border-b border-gray-200 text-black py-3 px-4 text-center shadow-sm">
                     <p className="font-light text-sm">You are viewing a preview of this course. This is how it will appear to learners.</p>
                 </div>
 
@@ -53,7 +53,7 @@ export default async function PreviewPage({ params }: { params: { id: string, co
                         <Suspense fallback={<div>Loading...</div>}>
                             {modules.length > 0 ? (
                                 <>
-                                    <h1 className="text-2xl sm:text-4xl font-light text-white mb-8 sm:mb-16">{courseData.name}</h1>
+                                    <h1 className="text-2xl sm:text-4xl font-light text-black mb-8 sm:mb-16">{courseData.name}</h1>
                                     <ClientPreviewWrapper
                                         modules={modules}
                                     />
@@ -61,8 +61,8 @@ export default async function PreviewPage({ params }: { params: { id: string, co
                             ) : (
                                 <div className="flex items-center justify-center flex-1">
                                     <div className="flex flex-col items-center justify-center text-center max-w-md">
-                                        <h1 className="text-4xl font-light text-white mb-6">Your learning adventure awaits!</h1>
-                                        <p className="text-gray-400 text-lg">This course is still being crafted with care. Check back soon to begin your journey.</p>
+                                        <h1 className="text-4xl font-light text-black mb-6">Your learning adventure awaits!</h1>
+                                        <p className="text-gray-800 text-lg">This course is still being crafted with care. Check back soon to begin your journey.</p>
                                     </div>
                                 </div>
                             )}

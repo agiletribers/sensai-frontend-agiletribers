@@ -489,10 +489,10 @@ export default function LearningMaterialViewer({
                         flex-shrink: 0 !important;
                         position: sticky !important;
                         bottom: 0 !important;
-                        background-color: #111111 !important;
+                        background-color: #ffffff !important;
                         z-index: 10 !important;
                         padding-top: 0.5rem !important;
-                        border-top: 1px solid #222222 !important;
+                        border-top: 1px solid #ffffff !important;
                     }
                     
                     /* Mobile layout view modes */
@@ -562,7 +562,7 @@ export default function LearningMaterialViewer({
                         bottom: 0 !important;
                         top: 0 !important;
                         z-index: 50 !important;
-                        background-color: #111111 !important;
+                        background-color: #ffffff !important;
                         animation: slide-up 0.3s ease-out forwards !important;
                         display: flex !important;
                         flex-direction: column !important;
@@ -580,7 +580,7 @@ export default function LearningMaterialViewer({
                         box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.7);
                     }
                     70% {
-                        box-shadow: 0 0 0 10px rgba(147, 51, 234, 0);
+                        box-shadow: 0 0 0 10px rgba(242, 236, 247, 0);
                     }
                     100% {
                         box-shadow: 0 0 0 0 rgba(147, 51, 234, 0);
@@ -634,7 +634,7 @@ export default function LearningMaterialViewer({
                     top: 0;
                     bottom: 0;
                     border-radius: 50%;
-                    box-shadow: 0 0 8px 4px rgba(147, 51, 234, 0.5);
+                    box-shadow: 0 0 8px 4px rgba(146, 51, 234, 0);
                     animation: pulse-dot 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
                 }
                 
@@ -667,10 +667,10 @@ export default function LearningMaterialViewer({
                 }
             `}</style>
 
-            <div className={`bg-[#111111] material-view-container ${showChatView ? (isMobileView ? 'mode-chat-full' : 'two-column-grid rounded-md overflow-hidden split-view-container') : 'mode-content-full'}`}>
+            <div className={`bg-[#ffffff] material-view-container ${showChatView ? (isMobileView ? 'mode-chat-full' : 'two-column-grid rounded-md overflow-hidden split-view-container') : 'mode-content-full'}`}>
                 {/* Content Container - Always rendered to avoid reloading */}
                 <div
-                    className="py-6 flex flex-col bg-[#1A1A1A] h-full content-container"
+                    className="py-6 flex flex-col bg-[#ffffff] h-full content-container"
                     style={{ overflow: 'auto' }}
                     ref={editorContainerRef}
                 >
@@ -680,20 +680,20 @@ export default function LearningMaterialViewer({
                             onChange={() => { }} // Read-only, no changes
                             isDarkMode={isDarkMode}
                             readOnly={true}
-                            className="dark-editor"
+                            className="light-editor"
                         />
                     </div>
                 </div>
 
                 {/* Chat Container - Only visible when showChatView is true */}
                 {showChatView && (
-                    <div className={`${isMobileView ? `mobile-chat-container ${isChatClosing ? 'slide-down' : ''}` : 'flex flex-col bg-[#111111] h-full overflow-hidden lg:border-l lg:border-t-0 sm:border-t sm:border-l-0 border-[#222222]'} chat-container`}>
-                        <div className="chat-header flex justify-between items-center px-4 py-2 border-b border-[#222222]">
-                            <h3 className="text-white text-sm font-light">Ask your doubts</h3>
+                    <div className={`${isMobileView ? `mobile-chat-container ${isChatClosing ? 'slide-down' : ''}` : 'flex flex-col bg-[#f1f1f1] h-full overflow-hidden lg:border-l lg:border-t-0 sm:border-t sm:border-l-0 border-[#f1f1f1]'} chat-container`}>
+                        <div className="chat-header flex justify-between items-center px-4 py-2 border-b border-[#f1f1f1]">
+                            <h3 className="text-black text-sm font-light">Ask your doubts</h3>
 
                             <button
                                 onClick={handleAskDoubt}
-                                className="text-white hover:bg-[#222222] rounded-full p-1 transition-colors cursor-pointer"
+                                className="text-black hover:text-white hover:bg-red-400 rounded-full p-1 transition-colors cursor-pointer"
                                 aria-label="Close chat"
                             >
                                 <X size={18} />

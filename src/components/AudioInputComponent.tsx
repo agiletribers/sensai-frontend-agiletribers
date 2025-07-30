@@ -446,7 +446,7 @@ export default function AudioInputComponent({
             {/* Recording status and timer */}
             {isRecording && (
                 <div className="absolute -top-10 left-0 right-0 text-center flex items-center justify-center z-20">
-                    <div className="bg-black/80 rounded-full px-4 py-2 shadow-md flex items-center">
+                    <div className="bg-white/80 rounded-full px-4 py-2 shadow-md flex items-center">
                         <div className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></div>
                         <span className="text-red-500 font-light text-sm">Recording {formatTime(recordingDuration)}</span>
                     </div>
@@ -457,18 +457,18 @@ export default function AudioInputComponent({
             {showMaxDurationError && (
                 <div className="absolute -top-10 left-0 right-0 text-center flex items-center justify-center z-20">
                     <div className="bg-red-500/90 rounded-full px-4 py-2 shadow-md flex items-center">
-                        <span className="text-white font-light text-sm">Maximum recording duration reached</span>
+                        <span className="text-black font-light text-sm">Maximum recording duration reached</span>
                     </div>
                 </div>
             )}
 
             {/* Delete confirmation dialog */}
             {showDeleteConfirmation && (
-                <div className="absolute -top-20 left-0 right-0 bg-[#222222] rounded-lg p-3 shadow-lg z-20">
-                    <p className="text-white text-sm mb-2">Are you sure you want to delete this recording?</p>
+                <div className="absolute -top-20 left-0 right-0 bg-[#f1f1f1] rounded-lg p-3 shadow-lg z-20">
+                    <p className="text-black text-sm mb-2">Are you sure you want to delete this recording?</p>
                     <div className="flex justify-end space-x-2">
                         <button
-                            className="text-white text-xs bg-transparent hover:bg-[#333333] px-2 py-1 rounded-md cursor-pointer"
+                            className="text-black text-xs bg-transparent hover:bg-[#f2ab55] px-2 py-1 rounded-md cursor-pointer"
                             onClick={cancelDelete}
                         >
                             Cancel
@@ -484,13 +484,13 @@ export default function AudioInputComponent({
             )}
 
             {/* Main container */}
-            <div className="relative flex items-center bg-[#111111] rounded-full overflow-hidden border border-[#222222] px-3 py-2">
+            <div className="relative flex items-center bg-[#ffffff] rounded-full overflow-hidden border border-[#f1f1f1] px-3 py-2">
                 {/* Record/Play/Stop button */}
                 {isSubmitting ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 ) : (
                     <button
-                        className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 rounded-full flex items-center justify-center bg-[#222222] text-white hover:bg-[#333333] cursor-pointer mr-3"
+                        className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 rounded-full flex items-center justify-center bg-[#f1f1f1] text-black hover:bg-[#ffffff] cursor-pointer mr-3"
                         onClick={isRecording ? stopRecording : audioBlob ? togglePlayback : startRecording}
                         disabled={isDisabled}
                         type="button"
@@ -535,7 +535,7 @@ export default function AudioInputComponent({
                             <div className="ml-2 sm:ml-3 flex-shrink-0 flex space-x-1 sm:space-x-2">
                                 {/* Delete button */}
                                 <button
-                                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#222222] text-white hover:bg-[#333333] cursor-pointer"
+                                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#ffffff] text-white hover:bg-[#f1f1f1] cursor-pointer"
                                     onClick={handleDeleteClick}
                                     disabled={isSubmitting || isDisabled}
                                     aria-label="Delete audio"

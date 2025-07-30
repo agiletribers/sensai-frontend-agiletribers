@@ -465,14 +465,14 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
         <>
             <Header showCreateCourseButton={false} />
 
-            <div className="min-h-screen bg-black text-white">
+            <div className="min-h-screen bg-white text-black">
                 <div className="container mx-auto px-4 py-8">
                     <main>
                         {/* School header with title */}
                         <div className="mb-10">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center">
-                                    <div className="w-12 h-12 bg-purple-700 rounded-lg flex items-center justify-center mr-4">
+                                    <div className="w-12 h-12 bg-[#f2ab55] rounded-lg flex items-center justify-center mr-4">
                                         <Building size={24} className="text-white" />
                                     </div>
                                     <div>
@@ -481,7 +481,7 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                                 ref={schoolNameRef}
                                                 contentEditable={isEditingName}
                                                 suppressContentEditableWarning
-                                                className={`text-3xl font-light outline-none ${isEditingName ? 'border-b border-white' : ''}`}
+                                                className={`text-3xl font-light outline-none ${isEditingName ? 'border-b border-black' : ''}`}
                                                 onBlur={handleNameBlur}
                                                 onKeyDown={handleNameKeyDown}
                                             >
@@ -501,7 +501,7 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                                 href={school.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="ml-2 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                                                className="ml-2 text-gray-400 hover:text-black transition-colors cursor-pointer"
                                                 aria-label="Open school URL"
                                             >
                                                 <ExternalLink size={14} />
@@ -516,7 +516,7 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                         <div className="mb-8">
                             <div className="flex border-b border-gray-800">
                                 <button
-                                    className={`px-4 py-2 font-light cursor-pointer ${activeTab === 'courses' ? 'text-white border-b-2 border-white' : 'text-gray-400 hover:text-white'}`}
+                                    className={`px-4 py-2 font-light cursor-pointer ${activeTab === 'courses' ? 'text-black border-b-2 border-gray-400' : 'text-gray-400 hover:text-black'}`}
                                     onClick={() => handleTabChange('courses')}
                                 >
                                     <div className="flex items-center">
@@ -525,7 +525,7 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                     </div>
                                 </button>
                                 <button
-                                    className={`px-4 py-2 font-light cursor-pointer ${activeTab === 'cohorts' ? 'text-white border-b-2 border-white' : 'text-gray-400 hover:text-white'}`}
+                                    className={`px-4 py-2 font-light cursor-pointer ${activeTab === 'cohorts' ? 'text-black border-b-2 border-gray-400' : 'text-gray-400 hover:text-black'}`}
                                     onClick={() => handleTabChange('cohorts')}
                                 >
                                     <div className="flex items-center">
@@ -534,7 +534,7 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                     </div>
                                 </button>
                                 <button
-                                    className={`px-4 py-2 font-light cursor-pointer ${activeTab === 'members' ? 'text-white border-b-2 border-white' : 'text-gray-400 hover:text-white'}`}
+                                    className={`px-4 py-2 font-light cursor-pointer ${activeTab === 'members' ? 'text-black border-b-2 border-gray-400' : 'text-gray-400 hover:text-black'}`}
                                     onClick={() => handleTabChange('members')}
                                 >
                                     <div className="flex items-center">
@@ -578,7 +578,7 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                     ) : (
                                         <div className="flex flex-col items-center justify-center py-20">
                                             <h2 className="text-4xl font-light mb-4">What if your next big idea became a course?</h2>
-                                            <p className="text-gray-400 mb-8">It might be easier than you think</p>
+                                            <p className="text-gray-800 mb-8">It might be easier than you think</p>
                                             <button
                                                 onClick={() => setIsCreateCourseDialogOpen(true)}
                                                 className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity inline-block cursor-pointer"
@@ -620,9 +620,9 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                     ) : (
                                         <div className="flex flex-col items-center justify-center py-20">
                                             <h2 className="text-4xl font-light mb-4">Bring your courses to life with cohorts</h2>
-                                            <p className="text-gray-400 mb-8">Create groups of learners and assign them courses to learn together</p>
+                                            <p className="text-gray-800 mb-8">Create groups of learners and assign them courses to learn together</p>
                                             <button
-                                                className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
+                                                className="px-6 py-3 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
                                                 onClick={() => {
                                                     setIsCreateCohortDialogOpen(true);
                                                 }}
@@ -639,7 +639,7 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                 <div>
                                     <div className="flex justify-start items-center mb-6 gap-4">
                                         <button
-                                            className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
+                                            className="px-6 py-3 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
                                             onClick={() => setIsInviteDialogOpen(true)}
                                         >
                                             Invite members
@@ -655,16 +655,16 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                         )}
                                     </div>
 
-                                    <div className="overflow-hidden rounded-lg border border-gray-800">
-                                        <table className="min-w-full divide-y divide-gray-800">
-                                            <thead className="bg-gray-900">
+                                    <div className="overflow-hidden rounded-lg border border-gray-400">
+                                        <table className="min-w-full divide-y divide-gray-400">
+                                            <thead className="bg-[#f5f5f5]">
                                                 <tr>
                                                     <th scope="col" className="w-10 px-3 py-3 text-left">
                                                         <div className="flex items-center justify-center">
                                                             {hasSelectableMembers() && (
                                                                 <input
                                                                     type="checkbox"
-                                                                    className="h-5 w-5 rounded-md border-2 border-purple-600 text-white appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#111111] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
+                                                                    className="h-5 w-5 rounded-md border-2 border-purple-600 text-black appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#ffffff] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
                                                                     checked={areAllMembersSelected()}
                                                                     onChange={handleSelectAllMembers}
                                                                     title="Select all members"
@@ -672,11 +672,11 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                                             )}
                                                         </div>
                                                     </th>
-                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Email</th>
-                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Role</th>
+                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Email</th>
+                                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Role</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="bg-[#111] divide-y divide-gray-800">
+                                            <tbody className="bg-[#ffffff] divide-y divide-gray-400">
                                                 {school.members.map(member => (
                                                     <tr key={member.id}>
                                                         <td className="w-10 px-4 py-4 whitespace-nowrap">
@@ -684,22 +684,22 @@ export default function ClientSchoolAdminView({ id }: { id: string }) {
                                                                 {member.role !== 'owner' && !isCurrentUser(member) && (
                                                                     <input
                                                                         type="checkbox"
-                                                                        className="h-5 w-5 rounded-md border-2 border-purple-600 text-white appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#111111] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
+                                                                        className="h-5 w-5 rounded-md border-2 border-purple-600 text-black appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#ffffff] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
                                                                         checked={selectedMembers.some(m => m.id === member.id)}
                                                                         onChange={() => handleMemberSelection(member)}
                                                                     />
                                                                 )}
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{member.email}</td>
+                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{member.email}</td>
                                                         <td className="px-6 py-4 whitespace-nowrap text-sm flex justify-between items-center">
-                                                            <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium ${member.role === 'owner' ? 'bg-purple-900 text-purple-200' : 'bg-gray-800 text-gray-300'}`}>
+                                                            <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium ${member.role === 'owner' ? 'bg-purple-900 text-purple-200' : 'bg-[#f2ab55] text-white'}`}>
                                                                 {member.role === 'owner' ? 'Owner' : 'Admin'}
                                                             </span>
                                                             {member.role !== 'owner' && !isCurrentUser(member) && (
                                                                 <button
                                                                     onClick={() => handleDeleteMember(member)}
-                                                                    className="flex items-center gap-1 text-gray-400 hover:text-red-500 transition-colors focus:outline-none cursor-pointer"
+                                                                    className="flex items-center gap-1 text-black hover:text-red-500 transition-colors focus:outline-none cursor-pointer"
                                                                     aria-label="Remove Member"
                                                                 >
                                                                     <Trash2 size={18} />

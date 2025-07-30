@@ -420,7 +420,7 @@ export default function BlockNoteEditor({
     return (
         <div
             ref={editorContainerRef}
-            className={`h-full dark-editor-container ${className}`}
+            className={`h-full light-editor-container ${className}`}
             // Add click handler to prevent event propagation
             onClick={(e) => {
                 e.stopPropagation();
@@ -433,7 +433,7 @@ export default function BlockNoteEditor({
             <BlockNoteView
                 editor={editor}
                 theme={isDarkMode ? "dark" : "light"}
-                className={isDarkMode ? "dark-editor" : ""}
+                className={isDarkMode ? "dark-editor" : "light-editor"}
                 editable={!readOnly}
             />
 

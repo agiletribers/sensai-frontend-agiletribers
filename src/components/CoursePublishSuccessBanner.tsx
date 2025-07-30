@@ -74,13 +74,13 @@ const CoursePublishSuccessBanner: React.FC<CoursePublishSuccessBannerProps> = ({
 
     return (
         <div data-testid="course-publish-success-banner" className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="absolute inset-0 bg-black bg-opacity-90"></div>
+            <div className="absolute inset-0 bg-[#f8f8f8] bg-opacity-90"></div>
 
             {/* Main Modal Container */}
             <div className="relative z-10 flex w-[600px] max-w-[90vw] h-[400px] max-h-[90vh] overflow-hidden">
 
                 {/* Left panel - Icon */}
-                <div className="w-1/3 bg-black flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="w-1/3 bg-gray-400 flex flex-col items-center justify-center relative overflow-hidden">
                     {/* Subtle animated background */}
                     <div className="absolute inset-0 opacity-10">
                         <div className="absolute top-0 left-0 w-full h-full">
@@ -142,7 +142,7 @@ const CoursePublishSuccessBanner: React.FC<CoursePublishSuccessBannerProps> = ({
                         {/* Back Button */}
                         <button
                             onClick={onClose}
-                            className="w-full py-3 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer group"
+                            className="w-full py-3 border border-black text-black font-medium rounded-md hover:bg-[#f2ab55] hover:text-white transition-colors duration-300 cursor-pointer group"
                         >
                             {isCohortSource ? "Back to Cohort" : "Back to Course"}
                         </button>

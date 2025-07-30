@@ -32,6 +32,7 @@ interface CourseDetails {
 
 // Default configuration for new questions
 const defaultQuestionConfig: QuizQuestionConfig = {
+    title: '',
     inputType: 'text',
     responseType: 'chat',
     questionType: 'objective',
@@ -1821,13 +1822,13 @@ export default function CreateCourse() {
     };
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen bg-white">
             {/* Use the reusable Header component with showCreateCourseButton set to false */}
             <Header showCreateCourseButton={false} />
 
             {/* Add overlay when course is being generated */}
             {isGeneratingCourse && !isCourseStructureGenerated && (
-                <div className="fixed inset-0 bg-black/70 backdrop-blur-[1px] z-40 flex items-center justify-center pointer-events-auto">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-[1px] z-40 flex items-center justify-center pointer-events-auto">
 
                 </div>
             )}
@@ -1844,7 +1845,7 @@ export default function CreateCourse() {
                         {/* Back to Courses button */}
                         <Link
                             href={`/school/admin/${schoolId}#courses`}
-                            className="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-4"
+                            className="inline-flex items-center text-gray-400 hover:text-black transition-colors mb-4"
                         >
                             <ArrowLeft size={16} className="mr-2 text-sm" />
                             Back to courses
@@ -1863,7 +1864,7 @@ export default function CreateCourse() {
                                         suppressContentEditableWarning
                                         onInput={handleCourseTitleInput}
                                         onKeyDown={handleKeyDown}
-                                        className={`text-4xl font-light text-white outline-none ${isCourseTitleEditing ? 'border-b border-gray-700 pb-1' : ''}`}
+                                        className={`text-4xl font-light text-black outline-none ${isCourseTitleEditing ? 'border-b border-gray-200 pb-1' : ''}`}
                                         autoFocus={isCourseTitleEditing}
                                     >
                                         {courseTitle}
@@ -1882,7 +1883,7 @@ export default function CreateCourse() {
                                 {isCourseTitleEditing ? (
                                     <>
                                         <button
-                                            className="flex items-center px-6 py-2 text-sm font-medium text-white bg-transparent border-2 !border-[#4F46E5] hover:bg-[#222222] outline-none rounded-full transition-all cursor-pointer shadow-md"
+                                            className="flex items-center px-6 py-2 text-sm font-medium text-[#4F46E5] bg-transparent border-2 !border-[#4F46E5] hover:bg-blue-200 outline-none rounded-full transition-all cursor-pointer shadow-md"
                                             onClick={saveCourseTitle}
                                         >
                                             <span className="mr-2 text-base">
@@ -1895,7 +1896,7 @@ export default function CreateCourse() {
                                             <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">Save</span>
                                         </button>
                                         <button
-                                            className="flex items-center px-6 py-2 text-sm font-medium text-white bg-transparent border-2 !border-[#6B7280] hover:bg-[#222222] outline-none rounded-full transition-all cursor-pointer shadow-md"
+                                            className="flex items-center px-6 py-2 text-sm font-medium text-red-600 bg-transparent border-2 !border-red-800 hover:bg-red-300 outline-none rounded-full transition-all cursor-pointer shadow-md"
                                             onClick={cancelCourseTitleEditing}
                                         >
                                             <span className="mr-2 text-base">
@@ -1907,7 +1908,7 @@ export default function CreateCourse() {
                                 ) : (
                                     <>
                                         <button
-                                            className="flex items-center px-6 py-2 text-sm font-medium text-white bg-transparent border-2 !border-[#4F46E5] hover:bg-[#222222] outline-none rounded-full transition-all cursor-pointer shadow-md"
+                                            className="flex items-center px-6 py-2 text-sm font-medium text-[#ffffff] bg-[#4F46E5] hover:bg-blue-400 outline-none rounded-full transition-all cursor-pointer shadow-md"
                                             onClick={enableCourseTitleEditing}
                                         >
                                             <span className="mr-2 text-base">
@@ -1919,7 +1920,7 @@ export default function CreateCourse() {
                                             <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">Edit</span>
                                         </button>
                                         <button
-                                            className="flex items-center px-6 py-2 text-sm font-medium text-white bg-transparent border-2 !border-[#EF4444] hover:bg-[#222222] outline-none rounded-full transition-all cursor-pointer shadow-md"
+                                            className="flex items-center px-6 py-2 text-sm font-medium text-white bg-[#f2ab55]  hover:bg-orange-300 outline-none rounded-full transition-all cursor-pointer shadow-md"
                                             onClick={() => {
                                                 // Open preview in a new tab
                                                 window.open(`/school/admin/${schoolId}/courses/${courseId}/preview`, '_blank');
@@ -1941,7 +1942,7 @@ export default function CreateCourse() {
 
                         <button
                             onClick={() => addModule(courseId, schoolId, modules, setModules, setActiveModuleId, lastUsedColorIndex, setLastUsedColorIndex)}
-                            className="mb-6 px-6 py-2 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-100 cursor-pointer"
+                            className="mb-6 px-6 py-2 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-100 cursor-pointer"
                         >
                             Add module
                         </button>
@@ -2008,22 +2009,22 @@ export default function CreateCourse() {
                                         {courseCohorts.map((cohort: { id: number; name: string }) => (
                                             <div
                                                 key={cohort.id}
-                                                className="flex items-center bg-[#222] px-4 py-2 rounded-full group hover:bg-[#333] transition-colors"
+                                                className="flex items-center bg-[#f1f1f1] px-4 py-2 rounded-full group hover:bg-[#f8f8f8] transition-colors"
                                             >
                                                 <Tooltip content="Settings" position="top">
                                                     <button
                                                         onClick={() => handleOpenSettingsDialog(cohort)}
-                                                        className="text-gray-400 hover:text-white cursor-pointer flex items-center mr-2"
+                                                        className="text-gray-800 hover:text-black cursor-pointer flex items-center mr-2"
                                                         aria-label="View settings"
                                                     >
                                                         <Settings size={16} />
                                                     </button>
                                                 </Tooltip>
-                                                <span className="text-white text-sm font-light">{cohort.name}</span>
+                                                <span className="text-black text-sm font-light">{cohort.name}</span>
                                                 <Tooltip content="Remove" position="top">
                                                     <button
                                                         onClick={() => initiateCohortRemoval(cohort.id, cohort.name)}
-                                                        className="text-gray-400 hover:text-white cursor-pointer flex items-center ml-2"
+                                                        className="text-gray-400 hover:text-black cursor-pointer flex items-center ml-2"
                                                         aria-label="Remove cohort from course"
                                                     >
                                                         <X size={16} />
@@ -2041,11 +2042,11 @@ export default function CreateCourse() {
 
             {/* Generation Progress Window */}
             {isGeneratingCourse && (
-                <div className="fixed bottom-4 right-4 z-50 w-72 bg-black border border-gray-800 rounded-xl shadow-lg overflow-hidden">
-                    <div className="px-5 py-3 bg-[#111111] border-b border-gray-800 flex justify-between items-center">
+                <div className="fixed bottom-4 right-4 z-50 w-72 bg-white border border-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div className="px-5 py-3 bg-[#ffffff] border-b border-gray-200 flex justify-between items-center">
                         <div className="flex items-center">
-                            <Sparkles size={16} className="text-white mr-2" />
-                            <h3 className="text-white text-sm font-light">AI Course Generation</h3>
+                            <Sparkles size={16} className="text-black mr-2" />
+                            <h3 className="text-black text-sm font-light">AI Course Generation</h3>
                         </div>
                     </div>
                     <div className="p-5 max-h-60 overflow-y-auto space-y-4">
@@ -2060,15 +2061,15 @@ export default function CreateCourse() {
                                     <div className="flex-shrink-0 mr-3">
                                         {showSpinner ? (
                                             <div className="h-5 w-5 flex items-center justify-center">
-                                                <Loader2 className="h-4 w-4 animate-spin text-white" />
+                                                <Loader2 className="h-4 w-4 animate-spin text-black" />
                                             </div>
                                         ) : (
                                             <div className="h-5 w-5 flex items-center justify-center">
-                                                <Check className="h-3 w-3 text-white" />
+                                                <Check className="h-3 w-3 text-black" />
                                             </div>
                                         )}
                                     </div>
-                                    <div className={`text-${isLatest ? 'white' : 'gray-400'} font-light`}>
+                                    <div className={`text-${isLatest ? 'black' : 'gray-400'} font-light`}>
                                         {message}
                                     </div>
                                 </div>
@@ -2078,10 +2079,10 @@ export default function CreateCourse() {
                         {/* Task generation progress bar - only shown after course structure is generated */}
                         {isCourseStructureGenerated && totalTasksToGenerate > 0 && !isGenerationComplete && (
                             <div className="mt-2">
-                                <div className="flex justify-between text-xs text-gray-400 mb-1">
+                                <div className="flex justify-between text-xs text-gray-800 mb-1">
                                     <span>{generatedTasksCount} / {totalTasksToGenerate}</span>
                                 </div>
-                                <div className="w-full bg-gray-800 rounded-full h-2.5">
+                                <div className="w-full bg-gray-200 rounded-full h-2.5">
                                     <div
                                         className="bg-green-600 h-2.5 rounded-full transition-all duration-300 ease-in-out"
                                         style={{ width: `${Math.min(100, (generatedTasksCount / totalTasksToGenerate) * 100)}%` }}
@@ -2097,7 +2098,7 @@ export default function CreateCourse() {
                         <div className="mb-4 flex justify-center">
                             <button
                                 onClick={handleGenerationDone}
-                                className="px-6 py-2 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
+                                className="px-6 py-2 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
                             >
                                 Done
                             </button>
@@ -2110,7 +2111,7 @@ export default function CreateCourse() {
             <div className="fixed bottom-10 right-10 z-50">
                 {!isGeneratingCourse && !toast.show && !isDialogOpen && (
                     <button
-                        className="flex items-center px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity shadow-lg cursor-pointer"
+                        className="flex items-center px-6 py-3 bg-[#f1f1f1] text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity shadow-lg cursor-pointer"
                         onClick={() => setShowGenerateDialog(true)}
                         disabled={isGeneratingCourse}
                     >

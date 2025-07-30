@@ -312,7 +312,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black/70" />
+                    <div className="fixed inset-0 bg-white/70" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
@@ -326,9 +326,9 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-lg bg-[#1A1A1A] shadow-xl transition-all">
+                            <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-lg bg-[#ffffff] shadow-xl transition-all">
                                 {/* Progress bar */}
-                                <div className="h-1 bg-gray-800 w-full">
+                                <div className="h-1 bg-gray-200 w-full">
                                     <div
                                         className="h-full bg-white transition-all duration-300 ease-in-out"
                                         style={{ width: `${progressPercentage}%` }}
@@ -338,7 +338,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                 {/* Close button */}
                                 <button
                                     onClick={handleDialogClose}
-                                    className="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"
+                                    className="absolute top-4 right-4 text-gray-400 hover:text-black cursor-pointer"
                                     aria-label="Close"
                                 >
                                     <X size={20} />
@@ -347,7 +347,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                 <div className="p-6">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-2xl font-light text-white"
+                                        className="text-2xl font-light text-black"
                                     >
                                         {stepContent.heading}
                                     </Dialog.Title>
@@ -365,7 +365,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                                 value={formData.courseDescription}
                                                 onChange={handleTextChange}
                                                 placeholder="A comprehensive guide to personal finance for beginners, covering budgeting essentials, debt management, building credit, emergency funds, and basic investment principles for long-term financial stability."
-                                                className={`w-full h-32 px-4 py-3 bg-[#0D0D0D] text-white rounded-lg font-light placeholder-gray-500 outline-none ${errors.courseDescription ? 'border-2 border-red-500' : 'border-none'} focus:ring-2 focus:ring-white/20`}
+                                                className={`w-full h-32 px-4 py-3 bg-[#f1f1f1] text-black rounded-lg font-light placeholder-gray-500 outline-none ${errors.courseDescription ? 'border-2 border-red-500' : 'border-none'} focus:ring-2 focus:ring-white/20`}
                                             />
                                             {errors.courseDescription && (
                                                 <div className="flex items-center text-red-500 text-sm mt-1">
@@ -385,7 +385,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                                 value={formData.intendedAudience}
                                                 onChange={handleTextChange}
                                                 placeholder="Recent graduates and young professionals starting their first full-time job, individuals with no prior financial education, or anyone looking to establish healthy financial habits and avoid common money mistakes in early career stages."
-                                                className={`w-full h-32 px-4 py-3 bg-[#0D0D0D] text-white rounded-lg font-light placeholder-gray-500 outline-none ${errors.intendedAudience ? 'border-2 border-red-500' : 'border-none'} focus:ring-2 focus:ring-white/20`}
+                                                className={`w-full h-32 px-4 py-3 bg-[#f1f1f1] text-black rounded-lg font-light placeholder-gray-500 outline-none ${errors.intendedAudience ? 'border-2 border-red-500' : 'border-none'} focus:ring-2 focus:ring-white/20`}
                                             />
                                             {errors.intendedAudience && (
                                                 <div className="flex items-center text-red-500 text-sm mt-1">
@@ -410,7 +410,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                             {!fileName ? (
                                                 <div
                                                     onClick={triggerFileInput}
-                                                    className={`flex items-center justify-center w-full h-36 px-4 py-3 bg-[#0A0A0A] rounded-lg cursor-pointer hover:bg-[#111] transition-colors ${(errors.referencePdf || fileError) ? 'border-2 border-red-500' : 'border border-dashed border-gray-600 hover:border-white'}`}
+                                                    className={`flex items-center justify-center w-full h-36 px-4 py-3 bg-[#f1f1f1] rounded-lg cursor-pointer hover:bg-[#ffffff] transition-colors ${(errors.referencePdf || fileError) ? 'border-2 border-red-500' : 'border border-dashed border-gray-600 hover:border-white'}`}
                                                 >
                                                     <div className="flex flex-col items-center text-gray-400">
                                                         <Upload size={24} className="mb-2" />
@@ -419,8 +419,8 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="flex items-center justify-between w-full px-4 py-4 bg-[#0A0A0A] border border-gray-700 rounded-lg">
-                                                    <div className="flex items-center text-white">
+                                                <div className="flex items-center justify-between w-full px-4 py-4 bg-[#f1f1f1] border border-gray-200 rounded-lg">
+                                                    <div className="flex items-center text-black">
                                                         {fileValidating ? (
                                                             <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-b-2 border-white rounded-full"></div>
                                                         ) : (
@@ -433,7 +433,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                                     <button
                                                         type="button"
                                                         onClick={removeFile}
-                                                        className="text-gray-400 hover:text-white cursor-pointer"
+                                                        className="text-gray-400 hover:text-black cursor-pointer"
                                                         aria-label="Remove file"
                                                     >
                                                         <X size={18} />
@@ -461,7 +461,7 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                                 value={formData.instructionsForAI}
                                                 onChange={handleTextChange}
                                                 placeholder="Focus on practical, actionable advice rather than theory. Include real-world examples and templates for budgeting. Structure the course for a 4-week learning period with small, achievable weekly goals."
-                                                className="w-full h-32 px-4 py-3 bg-[#0D0D0D] text-white rounded-lg font-light placeholder-gray-500 outline-none border-none focus:ring-2 focus:ring-white/20"
+                                                className="w-full h-32 px-4 py-3 bg-[#f1f1f1] text-white rounded-lg font-light placeholder-gray-500 outline-none border-none focus:ring-2 focus:ring-white/20"
                                             />
                                         </div>
                                     )}
@@ -470,18 +470,18 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                     {currentStep === 'review' && (
                                         <div className="space-y-6">
                                             <div className="space-y-3">
-                                                <h4 className="text-white font-medium">Course Description</h4>
-                                                <p className="text-gray-300 bg-[#0D0D0D] p-3 rounded-lg whitespace-pre-wrap">{formData.courseDescription}</p>
+                                                <h4 className="text-black font-medium">Course Description</h4>
+                                                <p className="text-gray-400 bg-[#f5f5f5] p-3 rounded-lg whitespace-pre-wrap">{formData.courseDescription}</p>
                                             </div>
 
                                             <div className="space-y-3">
-                                                <h4 className="text-white font-medium">Intended Audience</h4>
-                                                <p className="text-gray-300 bg-[#0D0D0D] p-3 rounded-lg whitespace-pre-wrap">{formData.intendedAudience}</p>
+                                                <h4 className="text-black font-medium">Intended Audience</h4>
+                                                <p className="text-gray-400 bg-[#f5f5f5] p-3 rounded-lg whitespace-pre-wrap">{formData.intendedAudience}</p>
                                             </div>
 
                                             <div className="space-y-3">
-                                                <h4 className="text-white font-medium">Reference Material</h4>
-                                                <div className="flex items-center text-gray-300 bg-[#0D0D0D] p-3 rounded-lg">
+                                                <h4 className="text-black font-medium">Reference Material</h4>
+                                                <div className="flex items-center text-gray-400 bg-[#f5f5f5] p-3 rounded-lg">
                                                     <File size={16} className="mr-2" />
                                                     <span>{fileName}</span>
                                                 </div>
@@ -489,8 +489,8 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
 
                                             {formData.instructionsForAI && (
                                                 <div className="space-y-3">
-                                                    <h4 className="text-white font-medium">Instructions for AI</h4>
-                                                    <p className="text-gray-300 bg-[#0D0D0D] p-3 rounded-lg whitespace-pre-wrap">{formData.instructionsForAI}</p>
+                                                    <h4 className="text-black font-medium">Instructions for AI</h4>
+                                                    <p className="text-gray-400 bg-[#f5f5f5] p-3 rounded-lg whitespace-pre-wrap">{formData.instructionsForAI}</p>
                                                 </div>
                                             )}
                                         </div>
@@ -498,12 +498,12 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                 </div>
 
                                 {/* Step navigation buttons */}
-                                <div className="flex justify-between px-6 py-4 bg-[#111] border-t border-gray-800">
+                                <div className="flex justify-between px-6 py-4 bg-[#f1f1f1] border-t border-gray-200">
                                     {currentStep !== 'description' ? (
                                         <button
                                             type="button"
                                             onClick={prevStep}
-                                            className="flex items-center text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
+                                            className="flex items-center text-gray-400 hover:text-black transition-colors focus:outline-none cursor-pointer"
                                         >
                                             <ArrowLeft size={16} className="mr-2" />
                                             Back
@@ -516,11 +516,11 @@ export default function GenerateWithAIDialog({ open, onClose, onSubmit, validati
                                         type="button"
                                         onClick={nextStep}
                                         disabled={isSubmitting}
-                                        className="px-6 py-2 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity flex items-center justify-center cursor-pointer"
+                                        className="px-6 py-2 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity flex items-center justify-center cursor-pointer"
                                     >
                                         {isSubmitting && currentStep === 'review' ? (
                                             <>
-                                                <div className="w-4 h-4 border-t-2 border-b-2 border-black rounded-full animate-spin mr-2"></div>
+                                                <div className="w-4 h-4  rounded-full animate-spin mr-2"></div>
                                                 Generating...
                                             </>
                                         ) : currentStep === 'review' ? (

@@ -155,7 +155,7 @@ export default function CohortCoursesLinkerDropdown({
         <div
             ref={dropdownRef}
             onClick={(e) => e.stopPropagation()}
-            className="absolute top-full right-0 mt-2 py-2 w-[400px] bg-[#1A1A1A] rounded-lg shadow-xl z-50">
+            className="absolute top-full right-0 mt-2 py-2 w-[400px] bg-[#f5f5f5] rounded-lg shadow-xl z-50">
             <div className="p-4 pb-2">
                 {/* Only show search when there are available courses */}
                 {!(totalSchoolCourses === 0 || availableCourses.length === 0) && (
@@ -163,7 +163,7 @@ export default function CohortCoursesLinkerDropdown({
                         <input
                             type="text"
                             placeholder="Search courses"
-                            className="w-full bg-[#111] rounded-md px-3 py-2 text-white"
+                            className="w-full text-black bg-[#ffffff] rounded-md px-3 py-2"
                             value={courseSearchQuery}
                             onChange={handleCourseSearch}
                         />
@@ -176,12 +176,12 @@ export default function CohortCoursesLinkerDropdown({
                         {tempSelectedCourses.map(course => (
                             <div
                                 key={course.id}
-                                className="flex items-center bg-[#222] px-3 py-1 rounded-full"
+                                className="flex items-center bg-[#ffffff] px-3 py-1 rounded-full"
                             >
-                                <span className="text-white text-sm font-light mr-2">{course.name}</span>
+                                <span className="text-black text-sm font-light mr-2">{course.name}</span>
                                 <button
                                     onClick={(e) => removeTempCourse(course.id, e)}
-                                    className="text-gray-400 hover:text-white cursor-pointer"
+                                    className="text-gray-400 hover:text-black cursor-pointer"
                                 >
                                     <X size={14} />
                                 </button>
@@ -212,7 +212,7 @@ export default function CohortCoursesLinkerDropdown({
                             // School has no courses at all
                             <>
                                 <h3 className="text-lg font-light mb-1">No courses available</h3>
-                                <p className="text-gray-400 text-sm">Create courses in your school that you can publish to your cohort</p>
+                                <p className="text-gray-800 text-sm">Create courses in your school that you can publish to your cohort</p>
                                 <Link
                                     href={`/school/admin/${schoolId}#courses`}
                                     className="mt-4 inline-block px-4 py-3 text-sm bg-white text-black rounded-full hover:opacity-90 transition-opacity"
@@ -236,13 +236,13 @@ export default function CohortCoursesLinkerDropdown({
                             // All available courses have been temporarily selected
                             <>
                                 <h3 className="text-lg font-light mb-1">All courses selected</h3>
-                                <p className="text-gray-400 text-sm">You have selected all available courses</p>
+                                <p className="text-gray-800 text-sm">You have selected all available courses</p>
                             </>
                         ) : (
                             // Search returned no results
                             <>
                                 <h3 className="text-lg font-light mb-1">No matching courses</h3>
-                                <p className="text-gray-400 text-sm">Try a different search term</p>
+                                <p className="text-gray-800 text-sm">Try a different search term</p>
                             </>
                         )}
                     </div>
@@ -252,13 +252,13 @@ export default function CohortCoursesLinkerDropdown({
                             {filteredCourses.map(course => (
                                 <div
                                     key={course.id}
-                                    className="flex items-center px-3 py-1.5 hover:bg-[#222] rounded-md cursor-pointer"
+                                    className="flex items-center px-3 py-1.5 bg-[#ffffff] hover:bg-[#f8f8f8] rounded-md cursor-pointer"
                                     onClick={() => selectCourse(course)}
                                 >
                                     <div className="w-6 h-6 bg-purple-900 rounded-md flex items-center justify-center mr-2">
                                         <BookOpen size={14} className="text-white" />
                                     </div>
-                                    <p className="text-white text-sm font-light">{course.name}</p>
+                                    <p className="text-black text-sm font-light">{course.name}</p>
                                 </div>
                             ))}
                         </div>

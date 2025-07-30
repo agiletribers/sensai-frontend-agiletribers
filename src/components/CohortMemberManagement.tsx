@@ -109,21 +109,21 @@ function InviteModal({
             onClick={onClose}
         >
             <div
-                className={`w-full max-w-lg bg-[#1A1A1A] rounded-lg shadow-2xl py-2`}
+                className={`w-full max-w-lg bg-[#f5f5f5] rounded-lg shadow-2xl py-2`}
                 onClick={e => e.stopPropagation()}
             >
 
                 <div className="px-6 py-4">
                     <button
                         onClick={() => fileInputRef.current?.click()}
-                        className={`flex items-center gap-4 text-gray-400 hover:text-white transition-colors cursor-pointer w-full mb-4 bg-[#0A0A0A] rounded-lg p-4 pr-2 border border-dashed border-[#0A0A0A] hover:border-white hover:bg-[#111] focus:outline-none group`}
+                        className={`flex items-center gap-4 text-gray-400 hover:text-black transition-colors cursor-pointer w-full mb-4 bg-[#ffffff] rounded-lg p-4 pr-2 border border-dashed border-[#ffffff] hover:border-white hover:bg-[#f5f5f5] focus:outline-none group`}
                     >
-                        <div className="w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center">
-                            <Upload size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                        <div className="w-12 h-12 rounded-full bg-[#ffffff] flex items-center justify-center">
+                            <Upload size={20} className="text-gray-400 group-hover:text-black transition-colors" />
                         </div>
                         <div className="flex flex-col items-start">
-                            <span className={`text-white text-base font-light`}>Import CSV</span>
-                            <span className={`text-gray-400 text-sm`}>Upload a CSV file with one email per row</span>
+                            <span className={`text-black text-base font-light`}>Import CSV</span>
+                            <span className={`text-gray-800 text-sm`}>Upload a CSV file with one email per row</span>
                         </div>
                     </button>
                     <input
@@ -161,7 +161,7 @@ function InviteModal({
                                         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                                             <Mail
                                                 size={18}
-                                                className={`transition-colors ${focusedInputId === input.id ? 'text-white' : 'text-gray-500'}`}
+                                                className={`transition-colors ${focusedInputId === input.id ? 'text-black' : 'text-gray-500'}`}
                                             />
                                         </div>
                                         <input
@@ -179,7 +179,7 @@ function InviteModal({
                                             onFocus={() => setFocusedInputId(input.id)}
                                             onBlur={() => setFocusedInputId(null)}
                                             placeholder="Enter email address"
-                                            className={`w-full bg-[#0A0A0A] pl-10 pr-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none ${input.error && focusedInputId !== input.id
+                                            className={`w-full bg-[#ffffff] pl-10 pr-4 py-3 rounded-lg text-white placeholder-gray-500 focus:outline-none ${input.error && focusedInputId !== input.id
                                                 ? 'border-2 border-red-500'
                                                 : focusedInputId === input.id
                                                     ? 'border border-white'
@@ -196,7 +196,7 @@ function InviteModal({
                                         onClick={() => {
                                             setEmailInputs(emailInputs.filter(e => e.id !== input.id));
                                         }}
-                                        className="text-gray-400 hover:text-white transition-colors p-2 cursor-pointer focus:outline-none self-start mt-1.5"
+                                        className="text-gray-400 hover:text-black transition-colors p-2 cursor-pointer focus:outline-none self-start mt-1.5"
                                     >
                                         <Trash2 size={20} />
                                     </button>
@@ -212,7 +212,7 @@ function InviteModal({
                             setFocusedInputId(newId);
                             setNewlyAddedId(newId);
                         }}
-                        className={`flex items-center gap-2 text-gray-400 hover:text-white w-full py-3 px-4 rounded-lg transition-colors mt-2 cursor-pointer focus:outline-none hover:bg-[#111]`}
+                        className={`flex items-center gap-2 bg-[#ffffff] text-gray-400 hover:text-white w-full py-3 px-4 rounded-lg transition-colors mt-2 cursor-pointer focus:outline-none hover:bg-[#f2ab55]`}
                     >
                         <Plus size={20} />
                         <span>Add another email</span>
@@ -225,14 +225,14 @@ function InviteModal({
                             onClose();
                             setEmailInputs([{ id: '1', email: '' }]);
                         }}
-                        className="px-4 py-2 text-gray-400 hover:text-white transition-colors font-light cursor-pointer focus:outline-none"
+                        className="px-4 py-2 text-gray-400 hover:text-red-400 transition-colors font-light cursor-pointer focus:outline-none"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        className="px-6 py-3 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                         {isSubmitting ? (role === 'learner' ? 'Inviting...' : 'Adding...') : submitButtonText}
                     </button>
@@ -465,7 +465,7 @@ export default function CohortMemberManagement({
             {members.length > 0 && (
                 <div className="flex justify-start items-center mb-6 gap-4">
                     <button
-                        className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
+                        className="px-6 py-3 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
                         onClick={() => setIsAddMemberOpen(true)}
                     >
                         {roleText.buttonText}
@@ -483,42 +483,42 @@ export default function CohortMemberManagement({
             )}
 
             {members.length > 0 ? (
-                <div className="overflow-hidden rounded-lg border border-gray-800">
-                    <table className="min-w-full divide-y divide-gray-800">
-                        <thead className="bg-gray-900">
+                <div className="overflow-hidden rounded-lg border border-gray-400">
+                    <table className="min-w-full divide-y divide-gray-400">
+                        <thead className="bg-white">
                             <tr>
                                 <th scope="col" className="w-10 px-3 py-3 text-left">
                                     <div className="flex items-center justify-center">
                                         <input
                                             type="checkbox"
-                                            className="h-5 w-5 rounded-md border-2 border-purple-600 text-white appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#111111] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
+                                            className="h-5 w-5 rounded-md border-2 border-purple-600 text-white appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#ffffff] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
                                             checked={areAllMembersSelected()}
                                             onChange={handleSelectAllMembers}
                                             title={`Select all ${role}s`}
                                         />
                                     </div>
                                 </th>
-                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Email</th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Email</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-[#111] divide-y divide-gray-800">
+                        <tbody className="bg-[#ffffff] divide-y divide-gray-400">
                             {members.map(member => (
                                 <tr key={member.id}>
                                     <td className="w-10 px-4 py-4 whitespace-nowrap">
                                         <div className="flex justify-center">
                                             <input
                                                 type="checkbox"
-                                                className="h-5 w-5 rounded-md border-2 border-purple-600 text-white appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#111111] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
+                                                className="h-5 w-5 rounded-md border-2 border-purple-600 text-white appearance-none checked:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-30 focus:outline-none bg-[#ffffff] cursor-pointer transition-all duration-200 ease-in-out hover:border-purple-500 relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-y-1/2 before:-translate-x-1/2 before:w-2.5 before:h-2.5 before:opacity-0 before:bg-white checked:before:opacity-100 checked:before:scale-100 before:scale-0 before:rounded-sm before:transition-all before:duration-200 checked:border-transparent"
                                                 checked={selectedMembers.some(m => m.id === member.id)}
                                                 onChange={() => handleMemberSelection(member)}
                                             />
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 flex justify-between items-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 flex justify-between items-center">
                                         {member.email}
                                         <button
                                             onClick={() => handleDeleteMember(member)}
-                                            className="text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
+                                            className="text-gray-800 hover:text-red-400 transition-colors focus:outline-none cursor-pointer"
                                         >
                                             <Trash2 size={16} />
                                         </button>
@@ -531,9 +531,9 @@ export default function CohortMemberManagement({
             ) : (
                 <div className="flex flex-col items-center justify-center py-20">
                     <h2 className="text-4xl font-light mb-4">{roleText.title}</h2>
-                    <p className="text-gray-400 mb-8">{roleText.description}</p>
+                    <p className="text-gray-800 mb-8">{roleText.description}</p>
                     <button
-                        className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
+                        className="px-6 py-3 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
                         onClick={() => setIsAddMemberOpen(true)}
                     >
                         {roleText.buttonText}

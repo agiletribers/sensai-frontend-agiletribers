@@ -37,17 +37,17 @@ export default function SchoolPickerDialog({
     );
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-white bg-opacity-70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div
-                className="w-full max-w-md bg-[#1A1A1A] rounded-lg shadow-2xl"
+                className="w-full max-w-md bg-[#f5f5f5] rounded-lg shadow-2xl"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Dialog Header */}
                 <div className="flex justify-between items-center p-6">
-                    <h2 className="text-xl font-light text-white">Select a School</h2>
+                    <h2 className="text-xl font-light text-black">Select a School</h2>
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
+                        className="text-gray-800 hover:text-black transition-colors focus:outline-none cursor-pointer"
                     >
                         <X size={24} />
                     </button>
@@ -60,11 +60,11 @@ export default function SchoolPickerDialog({
                             <button
                                 key={school.id}
                                 onClick={() => onSelectSchool(school.id)}
-                                className="w-full px-4 py-3 bg-[#0D0D0D] text-white text-left rounded-lg hover:bg-gray-800 transition-colors focus:outline-none cursor-pointer flex justify-between items-center"
+                                className="w-full px-4 py-3 bg-[#ffffff] text-black text-left rounded-lg hover:bg-gray-200 transition-colors focus:outline-none cursor-pointer flex justify-between items-center"
                             >
                                 <span>{school.name}</span>
                                 {(school.role === 'owner' || school.role === 'admin') && (
-                                    <span className={`text-xs px-2 py-1 rounded-full text-white ${school.role === 'owner' ? 'bg-purple-700' : 'bg-blue-600'
+                                    <span className={`text-xs px-2 py-1 rounded-full text-white ${school.role === 'owner' ? 'bg-[#f2ab55]' : 'bg-blue-600'
                                         }`}>
                                         {school.role === 'owner' ? 'Owner' : 'Admin'}
                                     </span>
@@ -78,7 +78,7 @@ export default function SchoolPickerDialog({
                 {!hasOwnedSchool && (<div className="flex justify-end gap-4 p-6">
                     <button
                         onClick={onCreateSchool}
-                        className="px-6 py-2 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
+                        className="px-6 py-2 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
                     >
                         Create a School
                     </button>

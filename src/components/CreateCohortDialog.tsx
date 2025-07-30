@@ -87,16 +87,16 @@ export default function CreateCohortDialog({ open, onClose, onCreateCohort, scho
     if (!open) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-white bg-opacity-70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div
-                className="w-full max-w-md bg-[#1A1A1A] rounded-lg shadow-2xl"
+                className="w-full max-w-md bg-[#f5f5f5] rounded-lg shadow-2xl"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Dialog Content */}
                 <div className="p-6 mt-4">
                     <div className="space-y-4">
                         <div>
-                            <p className="text-xs text-gray-400 mb-2 font-light">A cohort is a group of learners who will take your course together</p>
+                            <p className="text-xs text-gray-800 mb-2 font-light">A cohort is a group of learners who will take your course together</p>
                             <input
                                 id="cohortName"
                                 type="text"
@@ -106,7 +106,7 @@ export default function CreateCohortDialog({ open, onClose, onCreateCohort, scho
                                     if (error) setError('');
                                 }}
                                 placeholder="What will you name this cohort?"
-                                className={`w-full px-4 py-3 bg-[#0D0D0D] text-white text-lg rounded-lg font-light placeholder-gray-500 outline-none ${error ? 'border border-red-500' : 'border-none'}`}
+                                className={`w-full px-4 py-3 bg-[#ffffff] text-white text-lg rounded-lg font-light placeholder-gray-500 outline-none ${error ? 'border border-red-500' : 'border-none'}`}
                                 disabled={isLoading}
                             />
                             {error && (
@@ -130,14 +130,14 @@ export default function CreateCohortDialog({ open, onClose, onCreateCohort, scho
                 <div className="flex justify-end gap-4 p-6">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
+                        className="px-4 py-2 text-gray-400 hover:text-black transition-colors focus:outline-none cursor-pointer"
                         disabled={isLoading}
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSubmit}
-                        className={`px-6 py-2 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer ${isLoading ? 'opacity-70' : ''}`}
+                        className={`px-6 py-2 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none cursor-pointer ${isLoading ? 'opacity-70' : ''}`}
                         disabled={isLoading}
                     >
                         {isLoading ? (

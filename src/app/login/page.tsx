@@ -27,14 +27,14 @@ function LoginContent() {
     // Show loading state while checking session
     if (status === "loading") {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-black px-4">
-                <div className="w-12 h-12 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4">
+                <div className="w-12 h-12 border-t-2 border-b-2 border-black rounded-full animate-spin"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-black bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black flex flex-col justify-center items-center px-4 py-12">
+        <div className="min-h-screen bg-white bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black flex flex-col justify-center items-center px-4 py-12">
             <div className="w-full max-w-5xl mx-auto relative">
 
 
@@ -47,7 +47,7 @@ function LoginContent() {
                         {/* Logo */}
                         <div className="flex justify-center md:justify-start mb-8">
                             <Image
-                                src="/images/sensai-logo.svg"
+                                src="/images/interntribe.png"
                                 alt="SensAI Logo"
                                 width={240}
                                 height={80}
@@ -56,16 +56,16 @@ function LoginContent() {
                             />
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl font-light text-white leading-tight">
-                            <span className="text-white">Teach </span>
+                        <h1 className="text-4xl md:text-5xl font-light text-black leading-tight">
+                            <span className="text-black">Teach </span>
                             <span className="text-purple-400">smarter</span>
                         </h1>
-                        <h1 className="text-4xl md:text-5xl font-light text-white leading-tight">
-                            <span className="text-white">Reach </span>
+                        <h1 className="text-4xl md:text-5xl font-light text-black leading-tight">
+                            <span className="text-black">Reach </span>
                             <span className="text-purple-400">further</span>
                         </h1>
 
-                        <p className="text-lg md:text-xl text-gray-300 mt-6 mb-6 max-w-md">
+                        <p className="text-lg md:text-xl text-gray-800 mt-6 mb-6 max-w-md">
                             SensAI is an AI-powered LMS that coaches every learner by asking questions without giving away the answer and grades their responses like your favourite teaching assistant so that you can maximize your reach without sacrificing quality
                         </p>
                     </div>
@@ -122,8 +122,8 @@ function LoginContent() {
 export default function LoginPage() {
     return (
         <Suspense fallback={
-            <div className="flex flex-col items-center justify-center min-h-screen bg-black px-4">
-                <div className="w-12 h-12 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4">
+                <div className="w-12 h-12 border-t-2 border-b-2 border-black rounded-full animate-spin"></div>
             </div>
         }>
             <LoginContent />

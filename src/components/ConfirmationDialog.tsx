@@ -107,19 +107,19 @@ export default function ConfirmationDialog({
 
     return (
         <div
-            className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-white/50 bg-opacity-70 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
             onClick={(e) => {
                 e.stopPropagation();
                 onClickOutside ? onClickOutside() : onCancel();
             }}
         >
             <div
-                className="w-full max-w-md bg-[#1A1A1A] rounded-lg shadow-2xl relative"
+                className="w-full max-w-md bg-[#f5f5f5] rounded-lg shadow-2xl relative"
                 onClick={(e) => e.stopPropagation()}
             >
                 {showCloseButton && (
                     <button
-                        className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
+                        className="absolute top-4 right-4 text-gray-800 hover:text-black transition-colors focus:outline-none cursor-pointer"
                         onClick={(e) => {
                             e.stopPropagation();
                             handleClose();
@@ -129,8 +129,8 @@ export default function ConfirmationDialog({
                     </button>
                 )}
                 <div className="p-6">
-                    <h2 className="text-xl font-light text-white mb-4">{displayTitle}</h2>
-                    <p className="text-gray-300">{displayMessage}</p>
+                    <h2 className="text-xl font-light text-black mb-4">{displayTitle}</h2>
+                    <p className="text-gray-800">{displayMessage}</p>
                     {errorMessage && (
                         <p className="mt-4 text-red-400 text-sm">{errorMessage}</p>
                     )}
@@ -148,7 +148,7 @@ export default function ConfirmationDialog({
                             e.stopPropagation();
                             onCancel();
                         }}
-                        className="px-4 py-2 text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
+                        className="px-4 py-2 text-gray-800 hover:text-red-400 transition-colors focus:outline-none cursor-pointer"
                         disabled={isLoading}
                     >
                         {cancelButtonText}

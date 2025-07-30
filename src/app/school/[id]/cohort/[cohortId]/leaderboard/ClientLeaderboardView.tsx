@@ -97,7 +97,7 @@ export default function ClientLeaderboardView({
     };
 
     return (
-        <div className={`${view === 'admin' ? '' : 'min-h-screen'} bg-black text-white`}>
+        <div className={`${view === 'admin' ? '' : 'min-h-screen'} bg-white text-black`}>
             {view === 'learner' && <div className="hidden sm:block"><Header showCreateCourseButton={false} /></div>}
 
             <main className={`container mx-auto ${view === 'admin' ? '' : 'px-4 md:py-8'}`}>
@@ -108,7 +108,7 @@ export default function ClientLeaderboardView({
                         <div className="sm:hidden mb-4 pt-4">
                             <button
                                 onClick={() => router.back()}
-                                className="flex items-center space-x-2 px-3 py-2 bg-gray-800/40 hover:bg-gray-700/60 rounded-full text-sm text-gray-300 transition-colors"
+                                className="flex items-center space-x-2 px-3 py-2 bg-gray-400/40 hover:bg-gray-700/60 rounded-full text-sm text-gray-800 transition-colors"
                             >
                                 <ArrowLeft size={16} />
                                 <span>Back to {cohortName}</span>
@@ -121,12 +121,12 @@ export default function ClientLeaderboardView({
                                 {/* Desktop: cohort / leaderboard format */}
                                 <h1 className="hidden sm:flex sm:flex-row items-center justify-center">
                                     <span
-                                        className="text-gray-400 text-lg font-light cursor-pointer hover:text-gray-300"
+                                        className="text-gray-400 text-lg font-light cursor-pointer hover:text-black"
                                         onClick={() => router.back()}
                                     >
                                         {cohortName}
                                     </span>
-                                    <span className="mx-2 text-lg font-light text-gray-400">/</span>
+                                    <span className="mx-2 text-lg font-light text-gray-800">/</span>
                                     <span className="text-4xl font-light">Leaderboard</span>
                                 </h1>
 
@@ -148,7 +148,7 @@ export default function ClientLeaderboardView({
                         <p className="text-red-400 mb-4">{error}</p>
                         <button
                             onClick={() => location.reload()}
-                            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-md transition-colors"
+                            className="px-4 py-2 bg-gray-400 hover:bg-gray-600 rounded-md transition-colors"
                         >
                             Try Again
                         </button>
@@ -156,22 +156,22 @@ export default function ClientLeaderboardView({
                 ) : performers.length === 0 ? (
                     <div className="text-center py-16 px-8">
                         <div className="flex justify-center mb-8">
-                            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-gray-800/40 to-gray-900/60 flex items-center justify-center border border-gray-700/30">
-                                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-gray-200/40 to-gray-500/60 flex items-center justify-center border border-gray-200/30">
+                                <svg className="w-12 h-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                 </svg>
                             </div>
                         </div>
-                        <h3 className="text-2xl font-light text-white mb-3">No learners in the cohort yet</h3>
-                        <p className="text-gray-400 text-base max-w-md mx-auto leading-relaxed">The leaderboard will appear once learners are added</p>
+                        <h3 className="text-2xl font-light text-black mb-3">No learners in the cohort yet</h3>
+                        <p className="text-gray-800 text-base max-w-md mx-auto leading-relaxed">The leaderboard will appear once learners are added</p>
                     </div>
                 ) : (
-                    <div className="bg-[#121212] rounded-lg border border-gray-800 overflow-hidden">
+                    <div className="bg-[#f5f5f5] rounded-lg border border-gray-800 overflow-hidden">
                         {/* Column Headers */}
                         <div className={`grid ${view === 'admin'
                             ? 'grid-cols-7 sm:grid-cols-8 py-2 sm:py-3 text-xs sm:text-sm'
                             : 'grid-cols-7 sm:grid-cols-10 md:grid-cols-12 py-3 sm:py-4 text-xs sm:text-sm'
-                            } gap-1 sm:gap-2 px-2 sm:px-4 border-b border-gray-800 bg-[#2A2000] font-light`}>
+                            } gap-1 sm:gap-2 px-2 sm:px-4 border-b border-gray-800 bg-[#f8f8f8] font-light`}>
                             <div className="col-span-1 text-center">Rank</div>
                             <div className={`${view === 'admin'
                                 ? 'col-span-3 sm:col-span-3 md:col-span-4'
@@ -192,7 +192,7 @@ export default function ClientLeaderboardView({
                         </div>
 
                         {/* Performers List */}
-                        <div className="divide-y divide-gray-800">
+                        <div className="divide-y divide-gray-200">
                             {performers.slice(0, topN !== undefined ? topN : performers.length).map((performer, index) => (
                                 <div
                                     key={index}
@@ -214,7 +214,7 @@ export default function ClientLeaderboardView({
                                                 />
                                             </div>
                                         ) : (
-                                            <div className={`${view === 'admin' ? 'w-5 h-5 sm:w-7 sm:h-7' : 'w-6 h-6 sm:w-9 sm:h-9'}  rounded-full flex items-center justify-center bg-gray-800/30`}>
+                                            <div className={`${view === 'admin' ? 'w-5 h-5 sm:w-7 sm:h-7' : 'w-6 h-6 sm:w-9 sm:h-9'}  rounded-full flex items-center justify-center bg-gray-400/30`}>
                                                 <div className={`${view === 'admin'
                                                     ? 'w-4 h-4 sm:w-6 sm:h-6 text-xs sm:text-sm'
                                                     : 'w-5 h-5 sm:w-8 sm:h-8 text-xs sm:text-base'} rounded-full flex items-center justify-center font-light border-2 
@@ -231,7 +231,7 @@ export default function ClientLeaderboardView({
                                     <div className={`${view === 'admin'
                                         ? 'col-span-3 sm:col-span-3 md:col-span-4'
                                         : 'col-span-3 sm:col-span-4 md:col-span-5 lg:col-span-6'} flex items-center`}>
-                                        <div className="font-medium text-white flex items-center overflow-hidden">
+                                        <div className="font-medium text-black flex items-center overflow-hidden">
                                             <span className="truncate">{performer.name}</span>
                                             {isCurrentUser(performer) && (
                                                 <span className="ml-1 sm:ml-2 inline-flex items-center px-1 sm:px-2 py-0.5 rounded text-xs font-medium bg-blue-900/30 text-blue-400 flex-shrink-0">
@@ -244,7 +244,7 @@ export default function ClientLeaderboardView({
                                     {/* Streak Column */}
                                     <div className={`${view === 'admin'
                                         ? 'col-span-1 sm:col-span-2 md:col-span-1'
-                                        : 'col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'} text-center text-gray-400`}>
+                                        : 'col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2'} text-center text-gray-800`}>
                                         <span className="hidden sm:inline">{performer.streakDays} Day{performer.streakDays === 1 ? "" : "s"}</span>
                                         <span className="sm:hidden">{performer.streakDays}d</span>
                                     </div>
@@ -252,7 +252,7 @@ export default function ClientLeaderboardView({
                                     {/* Tasks Solved Column */}
                                     <div className={`${view === 'admin'
                                         ? 'col-span-2'
-                                        : 'col-span-2 sm:col-span-3 lg:col-span-3'} text-right pr-1 sm:pr-2 text-gray-400`}>
+                                        : 'col-span-2 sm:col-span-3 lg:col-span-3'} text-right pr-1 sm:pr-2 text-gray-800`}>
                                         {performer.tasksSolved}
                                     </div>
                                 </div>

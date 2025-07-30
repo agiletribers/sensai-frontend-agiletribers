@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SensAI",
+  title: "Interntribe",
   description: "The only LMS you need in the era of AI",
 };
 

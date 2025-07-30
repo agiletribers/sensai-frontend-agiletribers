@@ -94,7 +94,7 @@ const DripPublishingConfig = forwardRef<DripPublishingConfigRef, DripPublishingC
 
     return (
         <>
-            <div className="p-4 border-t border-gray-800 bg-[#23282d] rounded-lg">
+            <div className="p-4 border-t border-gray-200 bg-[#ffffff] rounded-lg">
                 {/* Pill Toggle for Drip Publishing */}
                 <div className={`flex items-center ${isDripEnabled ? 'mb-4' : ''}`}>
                     <input
@@ -102,9 +102,9 @@ const DripPublishingConfig = forwardRef<DripPublishingConfigRef, DripPublishingC
                         id="drip-enabled"
                         checked={isDripEnabled}
                         onChange={(e) => setIsDripEnabled(e.target.checked)}
-                        className="mr-3 h-4 w-4 cursor-pointer bg-[#181818] border-gray-600 rounded focus:ring-2 focus:ring-[#016037] focus:ring-offset-0 checked:bg-[#016037] checked:border-[#016037] transition-colors"
+                        className="mr-3 h-4 w-4 cursor-pointer bg-[#181818] border-gray-200 rounded focus:ring-2 focus:ring-[#016037] focus:ring-offset-0 checked:bg-[#f5f5f5] checked:border-[#016037] transition-colors"
                     />
-                    <label htmlFor="drip-enabled" className="text-white text-sm font-light cursor-pointer select-none">
+                    <label htmlFor="drip-enabled" className="text-black text-sm font-light cursor-pointer select-none">
                         Release modules gradually using a drip schedule
                     </label>
                 </div>
@@ -113,19 +113,19 @@ const DripPublishingConfig = forwardRef<DripPublishingConfigRef, DripPublishingC
                     <div className="space-y-4">
                         {/* Frequency Row: Every [number] [unit] */}
                         <div className="flex items-center space-x-2">
-                            <span className="text-white text-sm font-light select-none">Every</span>
+                            <span className="text-black text-sm font-light select-none">Every</span>
                             <input
                                 type="number"
                                 min="1"
                                 value={frequencyValue || ''}
                                 onChange={e => setFrequencyValue(Number(e.target.value))}
                                 placeholder="1"
-                                className="w-20 p-2 bg-[#181818] text-white text-sm font-light px-3 rounded-md border-0 focus:ring-2 focus:ring-[#016037] transition-all outline-none appearance-none text-center"
+                                className="w-20 p-2 bg-[#f8f8f8] text-black text-sm font-light px-3 rounded-md border-0 focus:ring-2 focus:ring-[#016037] transition-all outline-none appearance-none text-center"
                             />
                             <select
                                 value={frequencyUnit || 'day'}
                                 onChange={e => setFrequencyUnit(e.target.value)}
-                                className="w-32 p-2 bg-[#181818] text-white text-sm font-light px-4 rounded-md border-0 focus:ring-2 focus:ring-[#016037] transition-all outline-none appearance-none"
+                                className="w-32 p-2 bg-[#f8f8f8] text-black text-sm font-light px-4 rounded-md border-0 focus:ring-2 focus:ring-[#016037] transition-all outline-none appearance-none"
                             >
                                 <option value="" disabled>Select unit</option>
                                 {TIME_UNITS.map(unit => (
@@ -140,9 +140,9 @@ const DripPublishingConfig = forwardRef<DripPublishingConfigRef, DripPublishingC
                                 id="release-date-enabled"
                                 checked={isReleaseDateEnabled}
                                 onChange={(e) => setIsReleaseDateEnabled(e.target.checked)}
-                                className="mr-3 h-4 w-4 cursor-pointer bg-[#181818] border-gray-600 rounded focus:ring-2 focus:ring-[#016037] focus:ring-offset-0 checked:bg-[#016037] checked:border-[#016037] transition-colors"
+                                className="mr-3 h-4 w-4 cursor-pointer bg-[#f8f8f8] border-gray-200 rounded focus:ring-2 focus:ring-[#016037] focus:ring-offset-0 checked:bg-[#016037] checked:border-[#016037] transition-colors"
                             />
-                            <label htmlFor="release-date-enabled" className="text-white text-sm font-light cursor-pointer select-none">
+                            <label htmlFor="release-date-enabled" className="text-black text-sm font-light cursor-pointer select-none">
                                 Set a specific start date and time
                             </label>
                         </div>
@@ -150,7 +150,7 @@ const DripPublishingConfig = forwardRef<DripPublishingConfigRef, DripPublishingC
                         {/* Combined Date and Time Picker */}
                         {isReleaseDateEnabled && (
                             <div>
-                                <label className="block text-sm text-gray-300 font-light mb-1">Release date & time</label>
+                                <label className="block text-sm text-gray-800 font-light mb-1">Release date & time</label>
                                 <DatePicker
                                     selected={publishDate}
                                     onChange={(date) => setPublishDate(date)}
@@ -161,7 +161,7 @@ const DripPublishingConfig = forwardRef<DripPublishingConfigRef, DripPublishingC
                                     timeCaption="Time"
                                     minDate={new Date()}
                                     placeholderText="Select release date and time"
-                                    className="bg-[#181818] rounded-md p-2 px-4 w-full text-sm text-white cursor-pointer"
+                                    className="bg-gray-400 rounded-md p-2 px-4 w-full text-sm text-white cursor-pointer"
                                     wrapperClassName="w-full"
                                     calendarClassName="bg-[#242424] text-white border border-gray-700 rounded-lg shadow-lg cursor-pointer"
                                 />

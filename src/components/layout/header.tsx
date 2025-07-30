@@ -150,13 +150,13 @@ export function Header({
     };
 
     return (
-        <header className="w-full px-3 py-4 bg-black text-white">
+        <header className="w-full px-3 py-4 bg-white text-black">
             <div className="max-w-full mx-auto flex justify-between items-center">
                 {/* Logo */}
                 <Link href="/">
                     <div className="cursor-pointer">
                         <Image
-                            src="/images/sensai-logo.svg"
+                            src="/images/interntribe.png"
                             alt="SensAI Logo"
                             width={120}
                             height={40}
@@ -184,7 +184,7 @@ export function Header({
                         {showTryDemoButton && (
                             <button
                                 onClick={handleTryDemoClick}
-                                className="hidden md:block px-6 py-3 bg-white/20 text-white text-sm font-medium rounded-full hover:bg-white/30 cursor-pointer"
+                                className="hidden md:block px-6 py-3 bg-[#f2ab55] text-white text-sm font-medium rounded-full hover:bg-[#f5f5f5] hover:text-black cursor-pointer"
                             >
                                 Try a demo
                             </button>
@@ -192,7 +192,7 @@ export function Header({
                         {showCreateCourseButton && (
                             <button
                                 onClick={handleButtonClick}
-                                className="hidden md:block px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none focus:ring-0 focus:border-0 cursor-pointer"
+                                className="hidden md:block px-6 py-3 bg-[#f2ab55] text-black text-sm font-medium rounded-full hover:opacity-90 transition-opacity focus:outline-none focus:ring-0 focus:border-0 cursor-pointer"
                             >
                                 {getButtonText()}
                             </button>
@@ -211,8 +211,8 @@ export function Header({
 
                         {/* Profile dropdown menu */}
                         {profileMenuOpen && (
-                            <div className="absolute right-0 mt-2 w-64 bg-[#111111] rounded-md shadow-lg py-1 z-10">
-                                <div className="px-4 py-3 border-b border-gray-800">
+                            <div className="absolute right-0 mt-2 w-64 bg-[#ffffff] rounded-md shadow-lg py-1 z-10">
+                                <div className="px-4 py-3 border-b border-gray-200">
                                     <div className="flex items-center">
                                         <div className="w-10 h-10 rounded-full bg-purple-700 flex items-center justify-center mr-3">
                                             <span className="text-white font-medium">{getInitials()}</span>
@@ -224,10 +224,10 @@ export function Header({
                                     </div>
                                 </div>
 
-                                <div className="border-t border-gray-800 py-1">
+                                <div className="border-t border-gray-200 py-1">
                                     <button
                                         onClick={handleLogout}
-                                        className="flex w-full items-center text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 cursor-pointer"
+                                        className="flex w-full items-center text-left px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-[#f2ab55] cursor-pointer"
                                     >
                                         <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -283,12 +283,12 @@ export function Header({
                                 {/* Try a demo Button - only shown if not already a learner */}
                                 {showTryDemoButton && (
                                     <div className="flex items-center gap-3">
-                                        <span className="bg-black text-white py-2 px-4 rounded-full text-sm shadow-md">
+                                        <span className="bg-white text-black py-2 px-4 rounded-full text-sm shadow-md">
                                             Try a demo
                                         </span>
                                         <button
                                             onClick={handleTryDemoClick}
-                                            className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-md cursor-pointer"
+                                            className="w-14 h-14 rounded-full bg-[#f2ab55] text-white flex items-center justify-center shadow-md cursor-pointer"
                                             aria-label="Try as a learner"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
@@ -310,24 +310,24 @@ export function Header({
                                 {/* Go To School Button - only shown if hasOwnedSchool is true */}
                                 {hasOwnedSchool ? (
                                     <div className="flex items-center gap-3">
-                                        <span className="bg-black text-white py-2 px-4 rounded-full text-sm shadow-md">
+                                        <span className="bg-white text-black py-2 px-4 rounded-full text-sm shadow-md">
                                             Open school
                                         </span>
                                         <button
                                             onClick={handleGoToSchoolClick}
-                                            className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-md cursor-pointer"
+                                            className="w-14 h-14 rounded-full bg-[#f2ab55] text-white flex items-center justify-center shadow-md cursor-pointer"
                                             aria-label="Go to school"
                                         >
                                             <School className="h-6 w-6" />
                                         </button>
                                     </div>
                                 ) : /* Create Course Button */ <div className="flex items-center gap-3">
-                                    <span className="bg-black text-white py-2 px-4 rounded-full text-sm shadow-md">
+                                    <span className="bg-white text-black py-2 px-4 rounded-full text-sm shadow-md">
                                         Create a course
                                     </span>
                                     <button
                                         onClick={handleCreateCourseButtonClick}
-                                        className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-md cursor-pointer"
+                                        className="w-14 h-14 rounded-full bg-[#f2ab55] text-white flex items-center justify-center shadow-md cursor-pointer"
                                         aria-label="Create a course"
                                     >
                                         <Book className="h-6 w-6" />
