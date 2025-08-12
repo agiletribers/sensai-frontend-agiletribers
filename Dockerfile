@@ -13,6 +13,9 @@ ARG JUDGE0_API_URL
 ARG GOOGLE_CLIENT_ID
 ARG GOOGLE_CLIENT_SECRET
 ARG NEXT_PUBLIC_APP_URL
+ARG NEXT_PUBLIC_NOTION_CLIENT_ID
+ARG NOTION_CLIENT_ID
+ARG NOTION_CLIENT_SECRET
 
 # Set environment variables
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -43,4 +46,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the application
-CMD ["sh", "-c", "echo 'Environment variables:' && env | grep -E 'NEXTAUTH|GOOGLE|NODE_ENV|NEXT_PUBLIC|BACKEND|JUDGE0' && npm start"]
+CMD ["sh", "-c", "echo 'Environment variables:' && env | grep -E 'NEXTAUTH|GOOGLE|NODE_ENV|NEXT_PUBLIC|BACKEND|JUDGE0|NOTION' && npm start"]
