@@ -51,6 +51,12 @@ export const answerTypeOptions: DropdownOption[] = [
         "value": "code",
         "color": "#614A82",
         "tooltip": "Learner writes code in a code editor"
+    },
+    {
+        "label":"File",
+        "value":"file",
+        "color":"#f2ab55",
+        "tooltip":"Learner upload files"
     }
 ]; 
 

@@ -21,7 +21,9 @@ export interface MobileViewMode {
 
 export interface LearnerQuizViewProps {
     questions: QuizQuestion[];
-    onSubmitAnswer?: (questionId: string, answer: string) => void;
+    onSubmitAnswer?: (questionId: string, answer: string | {
+        fileData: string;
+    }) => void;
     isDarkMode?: boolean;
     className?: string;
     viewOnly?: boolean;
@@ -63,6 +65,13 @@ export default function LearnerQuizView({
 
     // Current question index
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedFile(e.target.files[0]);
+        }
+    };
 
     // Update current question index when currentQuestionId changes
     useEffect(() => {
@@ -179,6 +188,8 @@ export default function LearnerQuizView({
     // Add state to remember chat scroll position
     const [chatScrollPosition, setChatScrollPosition] = useState(0);
 
+    const [isFile,setIsFile] = useState(false);
+
     // Add state for navigation confirmation dialog
     const [showNavigationConfirmation, setShowNavigationConfirmation] = useState(false);
     const [pendingNavigation, setPendingNavigation] = useState<'next' | 'prev' | null>(null);
@@ -271,6 +282,7 @@ export default function LearnerQuizView({
                             timestamp: new Date(),
                             messageType: 'text',
                             audioData: undefined,
+                            fileData: undefined,
                             scorecard: []
                         }
                     ];
@@ -314,6 +326,7 @@ export default function LearnerQuizView({
                 }
 
                 const chatData = await response.json();
+                console.log('chat',chatData);
 
                 // Organize chat messages by question ID
                 const chatHistoryByQuestion: Record<string, ChatMessage[]> = {};
@@ -364,8 +377,55 @@ export default function LearnerQuizView({
                             console.error('Error fetching audio data:', error);
                         }
                     }
+                    let fileData = undefined;
+                    let fileType = undefined;
+                    let fileName = undefined;
 
-                    // Convert API message to ChatMessage format
+                    if (message.response_type === 'file') {
+                        setIsFile(true);
+                        try {
+                            const file_uuid = message.content;
+                            console.log('message', message)
+
+                            const metaRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/metadata?uuid=${file_uuid}`);
+
+                            const presignedResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/presigned-url/get?uuid=${file_uuid}&file_extension=${metaRes}`, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            });
+
+                            if (presignedResponse.ok) {
+                                const { url: presignedUrl } = await presignedResponse.json();
+
+                                const fileResponse = await fetch(presignedUrl);
+                                // if (!fileResponse.ok)
+
+                                const blob = await fileResponse.blob();
+
+                                fileData = await blobToBase64(blob);
+                                fileType = blob.type;
+                                fileName = `${file_uuid}.${metaRes}`;
+                            }
+
+                            if (!fileData) {
+                                const fallbackResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/download-local/?uuid=${file_uuid}&file_extension=${metaRes}`);
+                                if (!fallbackResponse.ok) {
+                                    throw new Error("Failed to fetch file from backend");
+                                }
+
+                                const blob = await fallbackResponse.blob();
+                                fileData = await blobToBase64(blob);
+                                fileType = blob.type;
+                                fileName = `${file_uuid}.pdf`;
+                            }
+
+                        } catch (error) {
+                            console.error("Error fetching file data:", error);
+                        }
+                    }
+
                     const chatMessage: ChatMessage = {
                         id: `${message.role}-${message.id}`,
                         content: message.content,
@@ -373,6 +433,9 @@ export default function LearnerQuizView({
                         timestamp: new Date(message.created_at),
                         messageType: message.response_type,
                         audioData: audioData,
+                        fileData: fileData,
+                        fileType: fileType,
+                        fileName: fileName,
                         scorecard: []
                     };
 
@@ -616,6 +679,7 @@ export default function LearnerQuizView({
                 content: userMessage.content,
                 response_type: userMessage.messageType,
                 audio_data: userMessage.messageType === 'audio' ? userMessage.audioData : undefined,
+                file_data: userMessage.messageType === 'file' ? userMessage.fileData : undefined,
                 created_at: userMessage.timestamp
             },
             {
@@ -656,7 +720,8 @@ export default function LearnerQuizView({
     const processUserResponse = useCallback(
         async (
             responseContent: string,
-            responseType: 'text' | 'audio' | 'code' = 'text',
+            responseType: 'text' | 'audio' | 'code' | 'file' = 'text',
+            fileData?: string,
             audioData?: string
         ) => {
             if (!validQuestions || validQuestions.length === 0 || currentQuestionIndex >= validQuestions.length) {
@@ -676,6 +741,7 @@ export default function LearnerQuizView({
                 timestamp: new Date(),
                 messageType: responseType,
                 audioData: audioData,
+                fileData: fileData,
                 scorecard: []
             };
 
@@ -715,7 +781,14 @@ export default function LearnerQuizView({
 
                 // Call the onSubmitAnswer callback to mark completion
                 if (onSubmitAnswer) {
-                    onSubmitAnswer(currentQuestionId, responseType === 'audio' ? audioData || '' : responseContent);
+                    const answer =
+                        responseType === 'file'
+                            ? { fileData: fileData || '' }
+                            : responseType === 'audio'
+                                ? audioData || ''
+                                : responseContent;
+
+                    onSubmitAnswer(currentQuestionId, answer);
                 }
 
                 // Add confirmation message immediately
@@ -725,7 +798,8 @@ export default function LearnerQuizView({
                     sender: 'ai',
                     timestamp: new Date(),
                     messageType: 'text',
-                    audioData: undefined
+                    audioData: undefined,
+                    fileData: undefined
                 };
 
                 // Update chat history with confirmation message
@@ -761,7 +835,8 @@ export default function LearnerQuizView({
                     content: msg.sender === 'user' ? msg.content :
                         validQuestions[currentQuestionIndex].config.questionType === 'objective' ? JSON.stringify({ feedback: msg.content }) : JSON.stringify({ feedback: msg.content, scorecard: msg.scorecard }),
                     response_type: msg.messageType,
-                    audio_data: msg.audioData
+                    audio_data: msg.audioData,
+                    file_data: msg.fileData
                 }));
 
                 let scorecardId = undefined;
@@ -771,8 +846,9 @@ export default function LearnerQuizView({
 
                 // Create the request body for teacher testing mode
                 requestBody = {
-                    user_response: responseType === 'audio' ? audioData : responseContent,
+                    user_response: responseType === 'audio' ? audioData : responseType === 'file' ? fileData : responseContent,
                     ...(responseType === 'audio' && { response_type: "audio" }),
+                    ...(responseType === 'file' && { response_type: 'file' }),
                     ...(responseType === 'code' && { response_type: "code" }),
                     chat_history: formattedChatHistory,
                     question: {
@@ -794,7 +870,7 @@ export default function LearnerQuizView({
             } else {
                 // In normal mode, send question_id and user_id
                 requestBody = {
-                    user_response: responseType === 'audio' ? audioData : responseContent,
+                    user_response: responseType === 'audio' ? audioData : responseType === 'file' ? fileData : responseContent,
                     response_type: responseType,
                     question_id: currentQuestionId,
                     user_id: userId,
@@ -815,6 +891,7 @@ export default function LearnerQuizView({
                 timestamp: new Date(),
                 messageType: 'text',
                 audioData: undefined,
+                fileData: undefined,
                 scorecard: []
             };
 
@@ -827,7 +904,6 @@ export default function LearnerQuizView({
             if (responseType === 'audio' && audioData) {
                 let presigned_url = '';
                 let file_uuid = '';
-
                 try {
                     // First, get a presigned URL for the audio file
                     const presignedUrlResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/presigned-url/create`, {
@@ -930,7 +1006,9 @@ export default function LearnerQuizView({
                 body: JSON.stringify(requestBody)
             })
                 .then(response => {
+
                     if (!response.ok) {
+                        console.log('response', response);
                         throw new Error('Network response was not ok');
                     }
 
@@ -1092,7 +1170,14 @@ export default function LearnerQuizView({
 
                                 // Call the onSubmitAnswer callback to mark completion
                                 if (onSubmitAnswer) {
-                                    onSubmitAnswer(currentQuestionId, responseType === 'audio' ? audioData || '' : responseContent);
+                                    const answer =
+                                        responseType === 'file'
+                                            ? { fileData: fileData || '' }
+                                            : responseType === 'audio'
+                                                ? audioData || ''
+                                                : responseContent;
+
+                                    onSubmitAnswer(currentQuestionId, answer);
                                 }
                             }
 
@@ -1107,7 +1192,14 @@ export default function LearnerQuizView({
 
                                 // Call the onSubmitAnswer callback to mark completion
                                 if (onSubmitAnswer) {
-                                    onSubmitAnswer(currentQuestionId, responseType === 'audio' ? audioData || '' : responseContent);
+                                    const answer =
+                                        responseType === 'file'
+                                            ? { fileData: fileData || '' }
+                                            : responseType === 'audio'
+                                                ? audioData || ''
+                                                : responseContent;
+
+                                    onSubmitAnswer(currentQuestionId, answer);
                                 }
 
                                 // For exam questions, clear the pending submission status
@@ -1162,7 +1254,9 @@ export default function LearnerQuizView({
                     // Show error message to the user
                     const errorMessage = responseType === 'audio'
                         ? "There was an error while processing your audio. Please try again."
-                        : "There was an error while processing your answer. Please try again.";
+                        : responseType === "file" ?
+                            "There was an error while processing your file. Please try again"
+                            : "There was an error while processing your answer. Please try again.";
 
                     const errorResponse: ChatMessage = {
                         id: `ai-error-${Date.now()}`,
@@ -1171,6 +1265,7 @@ export default function LearnerQuizView({
                         timestamp: new Date(),
                         messageType: 'text',
                         audioData: undefined,
+                        fileData: undefined,
                         scorecard: [],
                         isError: true
                     };
@@ -1222,8 +1317,9 @@ export default function LearnerQuizView({
     const [showExamSubmissionConfirmation, setShowExamSubmissionConfirmation] = useState(false);
     const [pendingExamSubmission, setPendingExamSubmission] = useState<{
         responseContent: string;
-        responseType: 'text' | 'audio' | 'code';
+        responseType: 'text' | 'audio' | 'code' | 'file';
         audioData?: string;
+        filedata?: string;
     } | null>(null);
 
     // Modified handleSubmitAnswer function to use shared logic
@@ -1253,6 +1349,7 @@ export default function LearnerQuizView({
             processUserResponse(
                 pendingExamSubmission.responseContent,
                 pendingExamSubmission.responseType,
+                pendingExamSubmission.filedata,
                 pendingExamSubmission.audioData
             );
         }
@@ -1289,13 +1386,76 @@ export default function LearnerQuizView({
                 const base64Data = base64Audio.split(',')[1];
 
                 // Use the shared processing function with audio-specific parameters
-                processUserResponse('', 'audio', base64Data);
+                processUserResponse('', 'audio', '', base64Data);
             };
         } catch (error) {
             console.error("Error processing audio submission:", error);
             setIsSubmitting(false);
         }
     }, [processUserResponse]);
+
+    const handleFileSubmit = async (fileBlob: Blob) => {
+        try {
+            let file_uuid = '';
+
+            // First try to get presigned URL
+            const presignedUrlResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/presigned-url/create`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content_type: fileBlob.type,
+                }),
+            });
+
+            if (presignedUrlResponse.ok) {
+                const presignedData = await presignedUrlResponse.json();
+                const presigned_url = presignedData.presigned_url;
+                file_uuid = presignedData.file_uuid;
+
+                // Upload to presigned URL (S3)
+                const uploadResponse = await fetch(presigned_url, {
+                    method: 'PUT',
+                    body: fileBlob,
+                    headers: {
+                        'Content-Type': fileBlob.type,
+                    },
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error(`S3 Upload failed: ${uploadResponse.status}`);
+                }
+
+                console.log('✅ File uploaded to S3');
+            } else {
+                // If presigned URL fails, do direct backend upload
+                const formData = new FormData();
+                formData.append('file', fileBlob);
+                formData.append('content_type', fileBlob.type);
+
+                const directUploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/upload-local`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!directUploadResponse.ok) {
+                    throw new Error(`Direct file upload failed: ${directUploadResponse.status}`);
+                }
+
+                const uploadData = await directUploadResponse.json();
+                file_uuid = uploadData.file_uuid;
+
+                console.log('✅ File uploaded directly to backend');
+            }
+
+            // Now call processUserResponse with file_uuid
+            processUserResponse(file_uuid, 'file', file_uuid, '');
+
+        } catch (error) {
+            console.error('❌ Error uploading file:', error);
+        }
+    };
 
     // Helper function to convert AudioBuffer to WAV format
     const convertAudioBufferToWav = (audioBuffer: AudioBuffer) => {
@@ -1444,50 +1604,39 @@ export default function LearnerQuizView({
         // Find the most recent user message
         const userMessages = currentHistory.filter(msg => msg.sender === 'user');
         if (userMessages.length === 0) {
-            return; // No user message to retry
+            return;
         }
 
         const lastUserMessage = userMessages[userMessages.length - 1];
 
-        // If in test mode, first remove the last user message and AI response
-        // Find all AI messages
+        // Remove last user and AI messages if AI message exists
         const aiMessages = currentHistory.filter(msg => msg.sender === 'ai');
 
-        // If there are AI messages, remove the last user message and last AI message
-        if (aiMessages.length > 0) {
-            setChatHistories(prev => {
-                const updatedHistory = [...(prev[currentQuestionId] || [])];
-                // Remove the last two messages (last user message and last AI response)
+        setChatHistories(prev => {
+            const updatedHistory = [...(prev[currentQuestionId] || [])];
+            if (aiMessages.length > 0) {
+                // Remove both last user and AI messages
                 updatedHistory.splice(updatedHistory.length - 2, 2);
-                return {
-                    ...prev,
-                    [currentQuestionId]: updatedHistory
-                };
-            });
-        } else {
-            // If no AI messages (unusual case), just remove the last user message
-            setChatHistories(prev => {
-                const updatedHistory = [...(prev[currentQuestionId] || [])];
-                // Remove just the last user message
+            } else {
+                // Remove only the last user message
                 updatedHistory.pop();
-                return {
-                    ...prev,
-                    [currentQuestionId]: updatedHistory
-                };
-            });
-        }
-
-        // Now process the user response again
-        // If it's an audio message, get the audio data
-        if (lastUserMessage.messageType === 'audio') {
-            if (lastUserMessage.audioData) {
-                processUserResponse('', 'audio', lastUserMessage.audioData);
             }
+            return {
+                ...prev,
+                [currentQuestionId]: updatedHistory
+            };
+        });
+
+        // Retry logic based on messageType
+        if (lastUserMessage.messageType === 'audio' && lastUserMessage.audioData) {
+            processUserResponse('', 'audio', '', lastUserMessage.audioData);
+        } else if (lastUserMessage.messageType === 'file' && lastUserMessage.fileData) {
+            processUserResponse('', 'file', lastUserMessage.fileData, '');
         } else {
-            // For text messages, resubmit the text content
             processUserResponse(lastUserMessage.content);
         }
     }, [validQuestions, currentQuestionIndex, chatHistories, processUserResponse, isTestMode]);
+
 
     // Update the parent component when AI responding state changes
     useEffect(() => {
@@ -1975,6 +2124,7 @@ export default function LearnerQuizView({
                             handleInputChange={handleInputChange}
                             handleSubmitAnswer={handleSubmitAnswer}
                             handleAudioSubmit={handleAudioSubmit}
+                            handleFileSubmit={handleFileSubmit}
                             handleViewScorecard={handleViewScorecard}
                             viewOnly={viewOnly}
                             completedQuestionIds={completedQuestionIds}

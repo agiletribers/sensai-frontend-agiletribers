@@ -190,6 +190,36 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
         }
     }, [chatHistory]);
 
+    const handleFileDownload = async (uuid: string) => {
+        try {
+            const metaRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/metadata?uuid=${uuid}`);
+            const { extension } = await metaRes.json();
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/file/presigned-url/get?uuid=${uuid}&file_extension=${extension}`
+            );
+            if (res.ok) {
+                const { url } = await res.json();
+                window.open(url, "_blank");
+                return;
+            }
+            else {
+                const fallbackResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/file/download-local/?uuid=${uuid}&file_extension=${extension}`);
+                const blob = await fallbackResponse.blob();
+                const downloadUrl = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = downloadUrl;
+                a.download = `${uuid}.${extension}`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(downloadUrl);
+            }
+        } catch (error) {
+            console.error("❌ File download failed:", error);
+        }
+    };
+
+
     // Custom styles for the animations
     const customStyles = `
     @keyframes pulsate {
@@ -346,57 +376,75 @@ const ChatHistoryView: React.FC<ChatHistoryViewProps> = ({
                                                 src={`data:audio/wav;base64,${message.audioData}`}
                                             />
                                         </div>
-                                    ) : message.messageType === 'code' ? (
-                                        <CodeMessageDisplay
-                                            code={message.content}
-                                            language={
-                                                Array.isArray(currentQuestionConfig?.codingLanguages) &&
-                                                    currentQuestionConfig?.codingLanguages.length > 0
-                                                    ? currentQuestionConfig?.codingLanguages[0]
-                                                    : undefined
-                                            }
-                                        />
-                                    ) : (
-                                        <div>
-                                            {message.sender === 'ai' ? (
-                                                <div className="text-sm font-sans break-words break-anywhere markdown-content">
-                                                    <Markdown
-                                                        remarkPlugins={[remarkGfm]}
-                                                    >
-                                                        {message.content}
-                                                    </Markdown>
-                                                </div>
+                                    ) :
+                                        message.messageType === 'file' && message.fileData ? (
+                                            <div className="flex flex-col space-y-2">
+                                                <button
+                                                    onClick={() => {
+                                                        console.log("***********", message)
+                                                        if (message.fileData) {
+                                                            handleFileDownload(message.fileData);
+                                                            console.log('&&&&&&&&&&&&&&&');
+                                                        }
+                                                    }}
+
+                                                    className="bg-blue-500 text-white px-3 py-1 rounded"
+                                                >
+                                                    Download
+                                                </button>
+                                            </div>
+                                        ) :
+                                            message.messageType === 'code' ? (
+                                                <CodeMessageDisplay
+                                                    code={message.content}
+                                                    language={
+                                                        Array.isArray(currentQuestionConfig?.codingLanguages) &&
+                                                            currentQuestionConfig?.codingLanguages.length > 0
+                                                            ? currentQuestionConfig?.codingLanguages[0]
+                                                            : undefined
+                                                    }
+                                                />
                                             ) : (
-                                                <pre className="text-sm break-words whitespace-pre-wrap break-anywhere font-sans">{message.content}</pre>
-                                            )}
-                                            {shouldShowViewReport(message) && (
-                                                <div className="my-3">
-                                                    <button
-                                                        onClick={() => onViewScorecard(message.scorecard || [])}
-                                                        className="bg-[#333333] text-white px-4 py-2 rounded-full text-xs hover:bg-[#444444] transition-colors cursor-pointer flex items-center"
-                                                    >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                                        </svg>
-                                                        View Report
-                                                    </button>
+                                                <div>
+                                                    {message.sender === 'ai' ? (
+                                                        <div className="text-sm font-sans break-words break-anywhere markdown-content">
+                                                            <Markdown
+                                                                remarkPlugins={[remarkGfm]}
+                                                            >
+                                                                {message.content}
+                                                            </Markdown>
+                                                        </div>
+                                                    ) : (
+                                                        <pre className="text-sm break-words whitespace-pre-wrap break-anywhere font-sans">{message.content}</pre>
+                                                    )}
+                                                    {shouldShowViewReport(message) && (
+                                                        <div className="my-3">
+                                                            <button
+                                                                onClick={() => onViewScorecard(message.scorecard || [])}
+                                                                className="bg-[#333333] text-white px-4 py-2 rounded-full text-xs hover:bg-[#444444] transition-colors cursor-pointer flex items-center"
+                                                            >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                                                </svg>
+                                                                View Report
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                    {isErrorMessage(message) && onRetry && (
+                                                        <div className="my-3">
+                                                            <button
+                                                                onClick={onRetry}
+                                                                className="bg-[#333333] text-white px-4 py-2 mb-2 rounded-full text-xs hover:bg-[#444444] transition-colors cursor-pointer flex items-center"
+                                                            >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                                                </svg>
+                                                                Retry
+                                                            </button>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             )}
-                                            {isErrorMessage(message) && onRetry && (
-                                                <div className="my-3">
-                                                    <button
-                                                        onClick={onRetry}
-                                                        className="bg-[#333333] text-white px-4 py-2 mb-2 rounded-full text-xs hover:bg-[#444444] transition-colors cursor-pointer flex items-center"
-                                                    >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                                        </svg>
-                                                        Retry
-                                                    </button>
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </div>

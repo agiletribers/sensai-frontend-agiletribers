@@ -319,7 +319,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
                                 id: String(question.id),
                                 content: question.blocks || [],
                                 config: {
-                                    inputType: question.input_type || 'text' as 'text' | 'code' | 'audio',
+                                    inputType: question.input_type || 'text' as 'text' | 'code' | 'audio' | 'file',
                                     responseType: question.response_type,
                                     correctAnswer: correctAnswer,
                                     questionType: questionType as 'objective' | 'subjective',
@@ -1041,7 +1041,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
     }, [questions, currentQuestionIndex, onChange]);
 
     // Handle configuration change for the current question
-    const handleConfigChange = useCallback((configUpdate: Partial<QuizQuestionConfig>, options?: { updateTemplate?: boolean, newQuestionType?: 'objective' | 'subjective', newInputType?: 'text' | 'code' | 'audio' }) => {
+    const handleConfigChange = useCallback((configUpdate: Partial<QuizQuestionConfig>, options?: { updateTemplate?: boolean, newQuestionType?: 'objective' | 'subjective', newInputType?: 'text' | 'code' | 'audio' | 'file' }) => {
         if (questions.length === 0) return;
 
         const updatedQuestions = [...questions];
@@ -1127,7 +1127,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
     }, [questions, currentQuestionIndex, schoolScorecards, onChange]);
 
     // Function to get template blocks based on question type
-    const getQuestionTemplateBlocks = (questionType: 'objective' | 'subjective', inputType: 'text' | 'code' | 'audio') => {
+    const getQuestionTemplateBlocks = (questionType: 'objective' | 'subjective', inputType: 'text' | 'code' | 'audio' | 'file') => {
         // Common blocks that appear in all templates
         const commonBlocks = [
             {
@@ -1188,6 +1188,10 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
             {
                 type: "bulletListItem",
                 content: [{ "text": "Audio", "type": "text", styles: { "bold": true } }, { "text": ": Learners need to record their answer", "type": "text", styles: {} }]
+            },
+            {
+                type: "bulletListItem",
+                content: [{ "text": "file", "type": "text", styles: { "bold": true } }, { "text": ": Learners upload the files", "type": "text", styles: {} }]
             },
             {
                 type: "bulletListItem",
@@ -1504,7 +1508,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
         // Get the previous question's configuration if available
         // Otherwise, use default values
         let questionType = 'objective';
-        let inputType: 'text' | 'code' | 'audio' = 'text';
+        let inputType: 'text' | 'code' | 'audio' | 'file' = 'text';
         let codingLanguages: string[] = [];
         let responseType: 'chat' | 'exam' = 'chat';
 
@@ -1786,6 +1790,8 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
                     status: status
                 }),
             });
+            console.log("question",formattedQuestions)
+            console.log("response",response)
 
             if (!response.ok) {
                 throw new Error(`Failed to publish quiz: ${response.status}`);
@@ -2211,7 +2217,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
 
             // Update the question config with the new input type
             handleConfigChange({
-                inputType: option.value as 'text' | 'code' | 'audio'
+                inputType: option.value as 'text' | 'code' | 'audio' | 'file'
             }, {
                 updateTemplate: true,
                 newQuestionType: currentQuestionConfig.questionType,

@@ -8,7 +8,7 @@ export interface QuizEditorHandle {
     hasChanges: () => boolean;
     hasQuestionContent: () => boolean;
     getCurrentQuestionType: () => 'objective' | 'subjective' | null;
-    getCurrentQuestionInputType: () => 'text' | 'code' | 'audio' | null;
+    getCurrentQuestionInputType: () => 'text' | 'code' | 'audio' | 'file' | null;
     hasCorrectAnswer: () => boolean;
     hasCodingLanguages: () => boolean;
     hasScorecard: () => boolean;
@@ -16,7 +16,7 @@ export interface QuizEditorHandle {
     validateBeforePublish: () => boolean;
     getCurrentQuestionConfig: () => QuizQuestionConfig | undefined;
     validateScorecardCriteria: (
-        scorecard: ScorecardTemplate | undefined, 
+        scorecard: ScorecardTemplate | undefined,
         callbacks: {
             setActiveTab: (tab: 'question' | 'answer' | 'scorecard' | 'knowledge') => void;
             showErrorMessage?: (title: string, message: string, emoji?: string) => void;
@@ -28,7 +28,7 @@ export interface QuizEditorHandle {
 }
 
 export interface QuizQuestionConfig {
-    inputType: 'text' | 'code' | 'audio';
+    inputType: 'text' | 'code' | 'audio' | 'file';
     responseType: 'chat' | 'exam';
     correctAnswer?: any[];
     codingLanguages?: string[]; // For multiple coding languages
@@ -44,7 +44,9 @@ export interface QuizQuestion {
     content: any[];
     config: QuizQuestionConfig;
 }
-
+type FileAnswer = {
+  fileData: string;
+};
 export interface QuizEditorProps {
     initialQuestions?: QuizQuestion[]; // Kept for backward compatibility but not used anymore
     onChange?: (questions: QuizQuestion[]) => void;
@@ -63,7 +65,7 @@ export interface QuizEditorProps {
     taskType?: 'quiz';
     currentQuestionId?: string;
     onQuestionChange?: (questionId: string) => void;
-    onSubmitAnswer?: (questionId: string, answer: string) => void;
+    onSubmitAnswer?: (questionId: string, answer: string | FileAnswer) => void;
     schoolId?: string; // ID of the school for fetching school-specific scorecards
     onValidationError?: (message: string, description: string) => void; // Function to handle validation errors
     courseId?: string; // ID of the course for fetching learning materials
@@ -106,7 +108,7 @@ export interface APIQuestionResponse {
         linkedMaterialIds?: string[];
     };
     coding_languages?: string[];
-} 
+}
 
 
 // Define a message type for the chat history
@@ -115,12 +117,15 @@ export interface ChatMessage {
     content: string;
     sender: 'user' | 'ai';
     timestamp: Date;
-    messageType?: 'text' | 'audio' | 'code';
+    messageType?: 'text' | 'audio' | 'code' | 'file';
     audioData?: string; // base64 encoded audio data
     scorecard?: ScorecardItem[]; // Add scorecard field for detailed feedback
     isError?: boolean;
     is_correct?: boolean; // Add is_correct attribute for exam responses
-}   
+    fileData?: string;
+    fileType?: string;
+    fileName?: string;
+}
 
 
 // Define scorecard item structure

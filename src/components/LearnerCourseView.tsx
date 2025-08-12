@@ -499,7 +499,10 @@ export default function LearnerCourseView({
     };
 
     // Function to handle quiz answer submission
-    const handleQuizAnswerSubmit = useCallback((questionId: string, answer: string) => {
+    const handleQuizAnswerSubmit = useCallback((questionId: string, answer: string | { fileData: string }) => {
+
+        const answerValue =
+            typeof answer === "string" ? answer : answer.fileData;
         // Mark the question as completed
         setCompletedQuestions(prev => ({
             ...prev,

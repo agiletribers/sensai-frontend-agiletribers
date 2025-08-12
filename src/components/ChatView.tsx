@@ -3,6 +3,7 @@ import { ChatMessage, ScorecardItem, QuizQuestion } from '../types/quiz';
 import ChatPlaceholderView from './ChatPlaceholderView';
 import ChatHistoryView from './ChatHistoryView';
 import AudioInputComponent from './AudioInputComponent';
+import FileInputComponent from './FileInputComponent';
 import CodeEditorView, { CodeEditorViewHandle } from './CodeEditorView';
 import Toast from './Toast';
 import { MessageCircle, Code, Sparkles, Save } from 'lucide-react';
@@ -36,6 +37,7 @@ interface ChatViewProps {
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     handleSubmitAnswer: (responseType?: 'text' | 'code') => void;
     handleAudioSubmit: (audioBlob: Blob) => void;
+    handleFileSubmit: (fileBlob: Blob) => void;
     handleViewScorecard: (scorecard: ScorecardItem[]) => void;
     viewOnly?: boolean;
     completedQuestionIds: Record<string, boolean>;
@@ -66,6 +68,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
     handleInputChange,
     handleSubmitAnswer,
     handleAudioSubmit,
+    handleFileSubmit,
     handleViewScorecard,
     viewOnly = false,
     completedQuestionIds,
@@ -550,7 +553,6 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                             )}
 
                             {!(currentQuestionConfig?.responseType === 'exam' && isQuestionCompleted) && (
-                                /* Input area - conditional render based on input type */
                                 <>
                                     {currentQuestionConfig?.inputType === 'audio' ? (
                                         <div className="w-full sm:w-auto">
@@ -559,8 +561,15 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                                                 isSubmitting={isSubmitting || isAiResponding}
                                             />
                                         </div>
+                                    ) : currentQuestionConfig?.inputType === 'file' ? (
+                                        <div className="w-full sm:w-auto">
+                                            <FileInputComponent
+                                                handleFileSubmit={handleFileSubmit}
+                                                isSubmitting={isSubmitting}
+                                                isAiResponding={isAiResponding}
+                                            />
+                                        </div>
                                     ) : (
-                                        /* Hide the text input for coding questions in exam mode */
                                         !(currentQuestionConfig?.responseType === 'exam' && isCodingQuestion) && (
                                             <div className="relative flex items-center bg-[#111111] rounded-3xl py-1 overflow-hidden border border-[#222222]">
                                                 <div className="flex-1 flex items-center">
@@ -594,7 +603,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                                                     {isSubmitting ? (
                                                         <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
                                                     ) : (
-                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                         </svg>
                                                     )}
@@ -604,6 +613,7 @@ const ChatView = forwardRef<ChatViewHandle, ChatViewProps>(({
                                     )}
                                 </>
                             )}
+
                         </div>
                     )}
                 </>

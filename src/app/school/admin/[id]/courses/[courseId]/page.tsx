@@ -37,6 +37,7 @@ const defaultQuestionConfig: QuizQuestionConfig = {
     questionType: 'objective',
     knowledgeBaseBlocks: [],
     linkedMaterialIds: [],
+    title:'text'
 };
 
 
