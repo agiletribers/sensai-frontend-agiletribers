@@ -18,6 +18,11 @@ import ChatView from "./ChatView";
 import { ChatMessage } from "../types/quiz";
 import { useAuth } from "@/lib/auth";
 
+// Add imports for Notion rendering
+import { BlockList } from "@udus/notion-renderer/components";
+import "@udus/notion-renderer/styles/globals.css";
+import "katex/dist/katex.min.css";
+
 interface LearningMaterialViewerProps {
     taskId?: string;
     userId?: string;
@@ -69,7 +74,12 @@ export default function LearningMaterialViewer({
     // Mobile view mode for responsive layout
     const [mobileViewMode, setMobileViewMode] = useState<'content-full' | 'chat-full' | 'split'>('split');
 
-    const initialContent = taskData?.blocks && taskData.blocks.length > 0 ? taskData.blocks : undefined;
+
+    const currentIntegrationType = 'notion';
+    const integrationBlock = taskData?.blocks?.find(block => block.type === currentIntegrationType);
+    const integrationBlocks = integrationBlock?.content || [];
+    
+    const initialContent = integrationBlock ? undefined : taskData?.blocks;
 
     // Fetch task data when taskId changes
     useEffect(() => {
@@ -675,13 +685,20 @@ export default function LearningMaterialViewer({
                     ref={editorContainerRef}
                 >
                     <div className="flex-1">
-                        <BlockNoteEditor
-                            initialContent={initialContent}
-                            onChange={() => { }} // Read-only, no changes
-                            isDarkMode={isDarkMode}
-                            readOnly={true}
-                            className="dark-editor"
-                        />
+                        {integrationBlocks.length > 0 ? (
+                            <div className="bg-[#191919] text-white px-6 pb-6 rounded-lg">
+                                <div className="text-white text-4xl font-bold mb-4 pl-1">{integrationBlock?.props?.resource_name}</div>
+                                <BlockList blocks={integrationBlocks} />
+                            </div>
+                        ) : (
+                            <BlockNoteEditor
+                                initialContent={initialContent}
+                                onChange={() => { }} // Read-only, no changes
+                                isDarkMode={isDarkMode}
+                                readOnly={true}
+                                className="dark-editor"
+                            />
+                        )}
                     </div>
                 </div>
 
