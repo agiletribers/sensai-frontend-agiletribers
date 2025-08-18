@@ -31,6 +31,20 @@ export const questionTypeOptions: DropdownOption[] = [
         "tooltip": "No single correct answer, open-ended question"
     },
 ];
+export const reviewTypeOptions: DropdownOption[] = [
+    {
+        "label": "AI",
+        "value": "ai",
+        "color": "#3A506B",
+        "tooltip": "AI will review the answers submitted by the learners"
+    },
+    {
+        "label": "Human-review",
+        "value": "human",
+        "color": "#3C6E47",
+        "tooltip": "Answers are reviewed manually by human"
+    },
+];
 
 // Options for answer types in the quiz editor
 export const answerTypeOptions: DropdownOption[] = [

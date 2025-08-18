@@ -3,7 +3,7 @@
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 import { useState, useEffect, useRef, useCallback, useMemo, forwardRef, useImperativeHandle } from "react";
-import { ChevronLeft, ChevronRight, Plus, FileText, Trash2, FileCode, AudioLines, Check, HelpCircle, X, ChevronDown, Pen, ClipboardCheck, Search, BookOpen, Code, Sparkles, Tag } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, FileText, Trash2, FileCode, AudioLines, Check, HelpCircle, X, ChevronDown, Pen, ClipboardCheck, Search, BookOpen, Code, Sparkles, Tag, Info } from "lucide-react";
 
 // Add custom styles for dark mode
 import "./editor-styles.css";
@@ -20,7 +20,7 @@ import ScorecardPickerDialog, { CriterionData, ScorecardTemplate } from "./Score
 // Import the new Scorecard component
 import Scorecard, { ScorecardHandle } from "./Scorecard";
 // Import dropdown options
-import { questionTypeOptions, answerTypeOptions, codingLanguageOptions, questionPurposeOptions } from "./dropdownOptions";
+import { questionTypeOptions, answerTypeOptions, codingLanguageOptions, questionPurposeOptions, reviewTypeOptions } from "./dropdownOptions";
 // Import quiz types
 import { QuizEditorHandle, QuizQuestionConfig, QuizQuestion, QuizEditorProps, APIQuestionResponse, ScorecardCriterion } from "../types";
 // Add import for LearningMaterialLinker
@@ -53,6 +53,7 @@ const defaultQuestionConfig: QuizQuestionConfig = {
     inputType: 'text',
     responseType: 'chat',
     questionType: 'objective',
+    reviewType: 'ai',
     knowledgeBaseBlocks: [],
     linkedMaterialIds: [],
     title: ''
@@ -1049,7 +1050,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
     // Integration logic for questions
     const currentIntegrationType = 'notion';
     const integrationBlock = currentQuestionContent.find(block => block.type === currentIntegrationType);
-    
+
     const initialContent = integrationBlock ? undefined : currentQuestionContent;
 
     // Handle integration blocks and editor instance clearing
@@ -1141,7 +1142,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
     }, [questions, currentQuestionIndex, onChange]);
 
     // Handle configuration change for the current question
-    const handleConfigChange = useCallback((configUpdate: Partial<QuizQuestionConfig>, options?: { updateTemplate?: boolean, newQuestionType?: 'objective' | 'subjective', newInputType?: 'text' | 'code' | 'audio' | 'file' }) => {
+    const handleConfigChange = useCallback((configUpdate: Partial<QuizQuestionConfig>, options?: { updateTemplate?: boolean, newQuestionType?: 'objective' | 'subjective', newInputType?: 'text' | 'code' | 'audio' | 'file', newReviewType?: 'ai' | 'human' }) => {
         if (questions.length === 0) return;
 
         const updatedQuestions = [...questions];
@@ -1891,8 +1892,8 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
                     status: status
                 }),
             });
-            console.log("question",formattedQuestions)
-            console.log("response",response)
+            console.log("question", formattedQuestions)
+            console.log("response", response)
 
             if (!response.ok) {
                 throw new Error(`Failed to publish quiz: ${response.status}`);
@@ -2294,6 +2295,21 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
         }
     }, [handleConfigChange, status, questions, currentQuestionIndex, onChange, currentQuestionConfig.inputType]);
 
+    const handleReviewChange = useCallback((option: DropdownOption | DropdownOption[]) => {
+        if (!Array.isArray(option)) {
+            setSelectedReviewType(option);
+            const newReviewType = option.value as 'ai' | 'human';
+            handleConfigChange({
+                reviewType: newReviewType,
+            }, {
+                updateTemplate: true,
+                newReviewType: newReviewType,
+                newQuestionType: currentQuestionConfig.questionType,
+                newInputType: currentQuestionConfig.inputType
+            });
+        }
+    }, [handleConfigChange, status, questions, currentQuestionIndex, onchange, currentQuestionConfig.reviewType])
+
     // Handle purpose change
     const handlePurposeChange = useCallback((option: DropdownOption | DropdownOption[]) => {
         // We know this is a single-select dropdown
@@ -2400,6 +2416,7 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
 
     // State for type dropdown
     const [selectedQuestionType, setSelectedQuestionType] = useState<DropdownOption>(questionTypeOptions[0]);
+    const [selectedReviewType, setSelectedReviewType] = useState<DropdownOption>(reviewTypeOptions[0]);
     const [selectedAnswerType, setSelectedAnswerType] = useState<DropdownOption>(answerTypeOptions[0]);
     const [selectedCodingLanguages, setSelectedCodingLanguages] = useState<DropdownOption[]>([codingLanguageOptions[0]]);
     const [selectedPurpose, setSelectedPurpose] = useState<DropdownOption>(questionPurposeOptions[0]);
@@ -2830,6 +2847,16 @@ const QuizEditor = forwardRef<QuizEditorHandle, QuizEditorProps>(({
                                             onChange={handleAnswerTypeChange}
                                             disabled={readOnly}
                                         />
+                                        <div className="flex items-center">
+                                            <Dropdown
+                                                icon={<Info size={16} />}
+                                                title="Review Type"
+                                                options={reviewTypeOptions}
+                                                selectedOption={selectedReviewType}
+                                                onChange={handleReviewChange}
+                                                disabled={readOnly}
+                                            />
+                                        </div>
                                         {selectedAnswerType.value == 'code' && (
                                             <div className="flex items-center">
                                                 <div className={`w-full ${highlightedField === 'codingLanguage' ? 'outline outline-2 outline-red-400 shadow-md shadow-red-900/50 animate-pulse bg-[#2D1E1E] rounded-md' : ''}`}>

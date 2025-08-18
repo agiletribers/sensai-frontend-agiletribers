@@ -33,6 +33,7 @@ export interface QuizQuestionConfig {
     correctAnswer?: any[];
     codingLanguages?: string[]; // For multiple coding languages
     questionType: 'objective' | 'subjective';
+    reviewType: 'ai'|'human';
     scorecardData?: ScorecardTemplate;
     knowledgeBaseBlocks: any[]; // Add knowledge base content blocks
     linkedMaterialIds: string[]; // Add IDs of linked learning materials
@@ -90,6 +91,7 @@ export interface APIQuestionResponse {
     type: string;
     input_type: string;
     response_type: string;
+    review_type:string;
     scorecard_id?: number;
     scorecard?: {
         id: number;

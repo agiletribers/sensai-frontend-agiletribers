@@ -35,6 +35,7 @@ const defaultQuestionConfig: QuizQuestionConfig = {
     inputType: 'text',
     responseType: 'chat',
     questionType: 'objective',
+    reviewType:'ai',
     knowledgeBaseBlocks: [],
     linkedMaterialIds: [],
     title:'text'
